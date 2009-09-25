@@ -1,0 +1,40 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+   <modelVersion>4.0.0</modelVersion>
+
+   <parent>
+      <groupId>org.jvnet.hudson.plugins</groupId>
+      <artifactId>plugin</artifactId>
+      <version>1.324</version>
+      <relativePath>../pom.xml</relativePath>
+   </parent>
+
+   <artifactId>cpptest</artifactId>
+   <version>0.1-SNAPSHOT</version>
+   <packaging>hpi</packaging>
+   <name>Hudson Cpptest plugin</name>
+   <url>http://wiki.hudson-ci.org/display/HUDSON/Cpptest+Plugin</url>
+
+   <licenses>
+      <license>
+         <name>MIT license</name>
+         <comments>All source code is under the MIT license.</comments>
+      </license>
+   </licenses>
+
+   <developers>
+      <developer>
+         <id>gbois</id>
+         <name>Gregory Boissinot</name>
+      </developer>
+   </developers>
+
+   <dependencies>
+      <dependency>
+         <groupId>org.jvnet.hudson.plugins</groupId>
+         <artifactId>xunit</artifactId>
+         <version>0.2</version>
+      </dependency>
+   </dependencies>
+   
+</project>
+

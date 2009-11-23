@@ -23,41 +23,24 @@
 
 package com.thalesgroup.hudson.plugins.cpptest;
 
-import com.thalesgroup.hudson.plugins.xunit.types.XUnitType;
-import com.thalesgroup.hudson.plugins.xunit.types.XUnitTypeDescriptor;
-import hudson.Extension;
-import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-public class CpptestUnitTest extends XUnitType {
+public class XUnitXSLUtil {
 
+    public static String readXmlAsString(String resourceName)
+            throws IOException {
+        String xmlString = "";
 
-    public CpptestUnitTest(String pattern) {
-        super(pattern);
-    }
-
-    public String getXsl() {
-        return "cpptest-to-junit.xsl";
-    }
-
-    public XUnitTypeDescriptor<?> getDescriptor() {
-        return new CpptestUnitTest.DescriptorImpl();
-    }
-
-    @Extension
-    public static class DescriptorImpl extends XUnitTypeDescriptor<CpptestUnitTest> {
-
-        public DescriptorImpl() {
-            super(CpptestUnitTest.class);
+        BufferedReader reader = new BufferedReader(new InputStreamReader(XUnitXSLUtil.class.getResourceAsStream(resourceName)));
+        String line = reader.readLine();
+        while (line != null) {
+            xmlString += line + "\n";
+            line = reader.readLine();
         }
+        reader.close();
 
-        @Override
-        public String getDisplayName() {
-            return Messages.cpptest_PublisherName();
-        }
-
-        public CpptestUnitTest newInstance(StaplerRequest req, JSONObject formData) throws FormException {
-            return new CpptestUnitTest(formData.getString("pattern"));
-        }
+        return xmlString;
     }
 }

@@ -24,40 +24,49 @@
 package com.thalesgroup.hudson.plugins.cpptest;
 
 import com.thalesgroup.hudson.plugins.xunit.types.XUnitType;
-import com.thalesgroup.hudson.plugins.xunit.types.XUnitTypeDescriptor;
-import hudson.Extension;
-import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
+import org.custommonkey.xmlunit.Diff;
+import org.custommonkey.xmlunit.Transform;
+import org.custommonkey.xmlunit.XMLUnit;
+import static org.junit.Assert.assertTrue;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
-public class CpptestUnitTest extends XUnitType {
+import javax.xml.transform.TransformerException;
+import java.io.IOException;
+import java.lang.reflect.Constructor;
 
+public class AbstractXUnitXSLTest {
 
-    public CpptestUnitTest(String pattern) {
-        super(pattern);
+    private Class<? extends XUnitType> type;
+
+    protected AbstractXUnitXSLTest(Class<? extends XUnitType> type) {
+        this.type = type;
+        setUp();
     }
 
-    public String getXsl() {
-        return "cpptest-to-junit.xsl";
+    public void setUp() {
+        XMLUnit.setIgnoreWhitespace(true);
+        XMLUnit.setNormalizeWhitespace(true);
+        XMLUnit.setIgnoreComments(true);
     }
 
-    public XUnitTypeDescriptor<?> getDescriptor() {
-        return new CpptestUnitTest.DescriptorImpl();
-    }
 
-    @Extension
-    public static class DescriptorImpl extends XUnitTypeDescriptor<CpptestUnitTest> {
+    protected void processTransformation(String source, String target)
+            throws IllegalAccessException, InstantiationException, IOException, TransformerException, SAXException {
 
-        public DescriptorImpl() {
-            super(CpptestUnitTest.class);
+
+        try {
+            Constructor typeContructor = type.getConstructors()[0];
+            Transform myTransform = new Transform(new InputSource(
+                    type.getResourceAsStream(source)), new InputSource(type.getResourceAsStream(((XUnitType) typeContructor.newInstance("default")).getXsl())));
+            Diff myDiff = new Diff(XUnitXSLUtil.readXmlAsString(target), myTransform);
+            assertTrue("XSL transformation did not work" + myDiff, myDiff.similar());
+
+        } catch (Exception e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            assertTrue(false);
         }
-
-        @Override
-        public String getDisplayName() {
-            return Messages.cpptest_PublisherName();
-        }
-
-        public CpptestUnitTest newInstance(StaplerRequest req, JSONObject formData) throws FormException {
-            return new CpptestUnitTest(formData.getString("pattern"));
-        }
     }
+
+
 }

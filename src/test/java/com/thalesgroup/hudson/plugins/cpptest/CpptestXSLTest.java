@@ -23,41 +23,16 @@
 
 package com.thalesgroup.hudson.plugins.cpptest;
 
-import com.thalesgroup.hudson.plugins.xunit.types.XUnitType;
-import com.thalesgroup.hudson.plugins.xunit.types.XUnitTypeDescriptor;
-import hudson.Extension;
-import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
+import org.junit.Test;
 
-public class CpptestUnitTest extends XUnitType {
+public class CpptestXSLTest extends AbstractXUnitXSLTest {
 
-
-    public CpptestUnitTest(String pattern) {
-        super(pattern);
+    public CpptestXSLTest() {
+        super(CpptestUnitTest.class);
     }
 
-    public String getXsl() {
-        return "cpptest-to-junit.xsl";
-    }
-
-    public XUnitTypeDescriptor<?> getDescriptor() {
-        return new CpptestUnitTest.DescriptorImpl();
-    }
-
-    @Extension
-    public static class DescriptorImpl extends XUnitTypeDescriptor<CpptestUnitTest> {
-
-        public DescriptorImpl() {
-            super(CpptestUnitTest.class);
-        }
-
-        @Override
-        public String getDisplayName() {
-            return Messages.cpptest_PublisherName();
-        }
-
-        public CpptestUnitTest newInstance(StaplerRequest req, JSONObject formData) throws FormException {
-            return new CpptestUnitTest(formData.getString("pattern"));
-        }
+    @Test
+    public void testcase1() throws Exception {
+        processTransformation("testcase1/result.xml", "testcase1/junit-result.xml");
     }
 }

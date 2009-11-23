@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <ResultsSession time="07/21/09 17:52:59" toolName="C++test" toolVer="7.1.3.23">
     <Authors>
-        <Author id="dev1" name="s0019742"></Author>
+        <Author id="dev1" name="gbois"></Author>
     </Authors>
     <VersionInfos>
         <StorageInfo ownerId="com.parasoft.xtest.checkers.api.generation" resultId="IGenerationProjectInfo" ver="2"></StorageInfo>

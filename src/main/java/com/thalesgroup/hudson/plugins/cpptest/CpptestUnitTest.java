@@ -26,14 +26,14 @@ package com.thalesgroup.hudson.plugins.cpptest;
 import com.thalesgroup.hudson.plugins.xunit.types.XUnitType;
 import com.thalesgroup.hudson.plugins.xunit.types.XUnitTypeDescriptor;
 import hudson.Extension;
-import net.sf.json.JSONObject;
-import org.kohsuke.stapler.StaplerRequest;
+import org.kohsuke.stapler.DataBoundConstructor;
 
 public class CpptestUnitTest extends XUnitType {
 
 
-    public CpptestUnitTest(String pattern) {
-        super(pattern);
+    @DataBoundConstructor
+    public CpptestUnitTest(String pattern, boolean faildedIfNotNew, boolean deleteJUnitFiles) {
+        super(pattern, faildedIfNotNew, deleteJUnitFiles);
     }
 
     public String getXsl() {
@@ -56,8 +56,10 @@ public class CpptestUnitTest extends XUnitType {
             return Messages.cpptest_PublisherName();
         }
 
-        public CpptestUnitTest newInstance(StaplerRequest req, JSONObject formData) throws FormException {
-            return new CpptestUnitTest(formData.getString("pattern"));
+        @Override
+        public String getId() {
+            return "cpptest";
         }
+
     }
 }

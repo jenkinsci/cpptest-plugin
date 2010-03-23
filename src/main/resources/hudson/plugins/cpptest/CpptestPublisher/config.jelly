@@ -1,0 +1,13 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
+	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:u="/util">
+  <f:entry title="${%Cpptest results}"
+	description="${%description.pattern}">
+	<f:textbox name="pattern" value="${instance.pattern}"
+		checkUrl="'descriptorByName/CpptestPublisher/checkPattern?value='+escape(this.value)" />
+  </f:entry>
+  <f:advanced>
+    <u:thresholds id="cpptest"/>
+    <u:defaultEncoding id="cpptest"/>
+    <u:trend id="cpptest"/>
+  </f:advanced>
+</j:jelly>

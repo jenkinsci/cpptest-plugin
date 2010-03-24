@@ -102,9 +102,15 @@ public class CpptestParser extends AbstractAnnotationParser {
                         priority = Priority.HIGH;
                     }
                     else if ("2".equalsIgnoreCase(viol.getSev())) {
-                        priority = Priority.NORMAL;
+                        priority = Priority.HIGH;
                     }
                     else if ("3".equalsIgnoreCase(viol.getSev())) {
+                        priority = Priority.NORMAL;
+                    }
+                    else if ("4".equalsIgnoreCase(viol.getSev())) {
+                        priority = Priority.NORMAL;
+                    }
+                    else if ("5".equalsIgnoreCase(viol.getSev())) {
                         priority = Priority.LOW;
                     }
                     else {

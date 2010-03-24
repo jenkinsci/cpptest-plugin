@@ -20,7 +20,9 @@ import org.xml.sax.SAXException;
 /**
  * Reads the meta data of the Cpptest rules from the DocBook files of the Cpptest distribution.
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public final class CpptestRules {
     /** Mapping of rule names to rules. */

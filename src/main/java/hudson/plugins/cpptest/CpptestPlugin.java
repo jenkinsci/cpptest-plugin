@@ -7,6 +7,8 @@ import hudson.plugins.cpptest.rules.CpptestRules;
  * Initializes the Cpptest messages and descriptions.
  *
  * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class CpptestPlugin extends Plugin {
     /** {@inheritDoc} */

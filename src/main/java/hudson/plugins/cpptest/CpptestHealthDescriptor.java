@@ -9,7 +9,9 @@ import org.jvnet.localizer.Localizable;
 /**
  * A health descriptor for Cpptest build results.
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class CpptestHealthDescriptor extends AbstractHealthDescriptor {
     /** Unique ID of this class. */

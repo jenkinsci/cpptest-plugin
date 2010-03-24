@@ -10,7 +10,9 @@ import hudson.plugins.cpptest.rules.CpptestRules;
  * Note: this class has a natural ordering that is inconsistent with equals.
  * </p>
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class Warning extends AbstractAnnotation {
     /** Unique identifier of this class. */

@@ -8,7 +8,9 @@ import java.util.List;
 /**
  * Java Bean class for a file of the Cpptest format.
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class StdViol {
     /** Name of the violation. */

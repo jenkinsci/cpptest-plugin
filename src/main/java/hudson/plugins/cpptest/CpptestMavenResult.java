@@ -8,7 +8,9 @@ import hudson.plugins.analysis.core.ResultAction;
 /**
  * Represents the aggregated results of the Cpptest analysis in m2 jobs.
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class CpptestMavenResult extends CpptestResult {
     /** Unique ID of this class. */

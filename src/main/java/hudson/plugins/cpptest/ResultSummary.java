@@ -4,7 +4,9 @@ package hudson.plugins.cpptest;
  * Represents the result summary of the Cpptest parser. This summary will be
  * shown in the summary.jelly script of the Cpptest result action.
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public final class ResultSummary {
     /**

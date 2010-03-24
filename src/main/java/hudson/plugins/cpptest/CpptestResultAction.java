@@ -15,6 +15,8 @@ import hudson.plugins.analysis.core.PluginDescriptor;
  * </p>
  *
  * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class CpptestResultAction extends AbstractResultAction<CpptestResult> {
     /** Unique identifier of this class. */

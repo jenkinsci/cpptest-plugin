@@ -3,7 +3,9 @@ package hudson.plugins.cpptest.rules;
 /**
  * Java Bean class representing a DocBook subsection.
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class Topic {
     /** The name of this topic. */

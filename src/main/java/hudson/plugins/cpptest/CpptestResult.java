@@ -13,7 +13,9 @@ import com.thoughtworks.xstream.XStream;
  * Represents the results of the Checkstyle analysis. One instance of this class
  * is persisted for each build via an XML file.
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class CpptestResult extends BuildResult {
     /** Unique identifier of this class. */

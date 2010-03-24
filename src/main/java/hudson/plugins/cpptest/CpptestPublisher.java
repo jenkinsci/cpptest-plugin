@@ -19,6 +19,8 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * Publishes the results of the Cpptest analysis  (freestyle project type).
  *
  * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class CpptestPublisher extends HealthAwarePublisher {
     /** Unique ID of this class. */

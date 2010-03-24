@@ -19,6 +19,8 @@ import java.util.Map;
  * project.
  *
  * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class MavenCpptestResultAction extends CpptestResultAction implements AggregatableAction, MavenAggregatedReport {
     /** Unique identifier of this class. */

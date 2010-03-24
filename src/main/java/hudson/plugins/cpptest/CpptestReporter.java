@@ -20,6 +20,8 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * Publishes the results of the Cpptest analysis (maven 2 project type).
  *
  * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class CpptestReporter extends HealthAwareMavenReporter {
     /** Unique identifier of this class. */

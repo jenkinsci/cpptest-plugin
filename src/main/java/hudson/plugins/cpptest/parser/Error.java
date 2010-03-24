@@ -3,7 +3,9 @@ package hudson.plugins.cpptest.parser;
 /**
  * Java Bean class for a violation of the Cpptest format.
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class Error {
 // CHECKSTYLE:OFF

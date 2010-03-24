@@ -20,7 +20,9 @@ import org.w3c.dom.Node;
  * Digester rule to parse the actual content of a DocBook subsection node. Does
  * not interpret XML elements that are children of a subsection.
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class TopicRule extends NodeCreateRule {
     /**

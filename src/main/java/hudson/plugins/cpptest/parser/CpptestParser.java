@@ -19,7 +19,9 @@ import org.xml.sax.SAXException;
 /**
  * A parser for Cpptest XML files.
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class CpptestParser extends AbstractAnnotationParser {
     /** Unique identifier of this class. */

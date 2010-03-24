@@ -11,7 +11,9 @@ import org.kohsuke.stapler.StaplerRequest;
  * Descriptor for the class {@link CpptestReporter}. Used as a singleton. The
  * class is marked as public so that it can be accessed from views.
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 @Extension(ordinal = 100)
 public class CpptestReporterDescriptor extends ReporterDescriptor {

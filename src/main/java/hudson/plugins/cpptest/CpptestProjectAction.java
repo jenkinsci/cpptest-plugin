@@ -7,6 +7,8 @@ import hudson.plugins.analysis.core.AbstractProjectAction;
  * Entry point to visualize the Cpptest trend graph in the project screen.
  *
  * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 public class CpptestProjectAction extends AbstractProjectAction<CpptestResultAction> {
     /** Unique identifier of this class. */

@@ -6,7 +6,9 @@ import hudson.plugins.analysis.core.PluginDescriptor;
 /**
  * Descriptor for the class {@link CpptestPublisher}.
  *
- * @author NQH
+ * @author Ulli Hafner
+ * 
+ * NQH: adapt for Cpptest
  */
 @Extension(ordinal = 100)
 public final class CpptestDescriptor extends PluginDescriptor {

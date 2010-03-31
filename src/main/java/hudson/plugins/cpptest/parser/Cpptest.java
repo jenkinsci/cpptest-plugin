@@ -11,6 +11,7 @@ import java.util.List;
  * @author Ulli Hafner
  * 
  * NQH: adapt for Cpptest
+ * TODO: add rule description & category implementation
  */
 public class Cpptest {
     /** All files of this violations collection. */

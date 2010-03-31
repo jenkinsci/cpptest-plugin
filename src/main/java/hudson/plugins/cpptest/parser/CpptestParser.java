@@ -61,11 +61,16 @@ public class CpptestParser extends AbstractAnnotationParser {
             digester.addSetProperties(fileXPath);
             digester.addSetNext(fileXPath, "addFile", hudson.plugins.cpptest.parser.StdViol.class.getName());
 
-            //String bugXPath = "ResultsSession/CodingStandards/StdViols/StdViol";
-            //digester.addObjectCreate(bugXPath, Error.class);
-            //digester.addSetProperties(bugXPath);
-            //digester.addSetNext(bugXPath, "addError", Error.class.getName());
-
+            String ruleXPath = "ResultsSession/CodingStandards/Rules/RulesList//Rule";
+            digester.addObjectCreate(ruleXPath, RuleDesc.class);
+            digester.addSetProperties(ruleXPath);
+            digester.addSetNext(ruleXPath, "addRuleDesc", RuleDesc.class.getName());
+            
+            String categoryXPath = "ResultsSession/CodingStandards/Rules/CategoriesList//Category";
+            digester.addObjectCreate(categoryXPath, Category.class);
+            digester.addSetProperties(categoryXPath);
+            digester.addSetNext(categoryXPath, "addCategory", Category.class.getName());
+            
             Cpptest module;
             module = (Cpptest)digester.parse(new InputStreamReader(file, "UTF-8"));
             if (module == null) {

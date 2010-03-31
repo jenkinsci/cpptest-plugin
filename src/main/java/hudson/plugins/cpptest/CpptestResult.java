@@ -10,7 +10,7 @@ import hudson.plugins.cpptest.parser.Warning;
 import com.thoughtworks.xstream.XStream;
 
 /**
- * Represents the results of the Checkstyle analysis. One instance of this class
+ * Represents the results of the Cpptest analysis. One instance of this class
  * is persisted for each build via an XML file.
  *
  * @author Ulli Hafner
@@ -80,7 +80,7 @@ public class CpptestResult extends BuildResult {
      */
     @Override
     protected String getSerializationFileName() {
-        return "checkstyle-warnings.xml";
+        return "cpptest-warnings.xml";
     }
 
     /** {@inheritDoc} */

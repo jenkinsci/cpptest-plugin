@@ -22,7 +22,7 @@ public final class ResultSummary {
 
         summary.append("Code standard: ");
         if (bugs > 0) {
-            summary.append("<a href=\"cpptestResult\">");
+            summary.append("<a href=\"CpptestResult\">");
         }
         if (bugs == 1) {
             summary.append(Messages.Cpptest_ResultAction_OneWarning());
@@ -53,7 +53,7 @@ public final class ResultSummary {
     public static String createDeltaMessage(final CpptestResult result) {
         StringBuilder summary = new StringBuilder();
         if (result.getNumberOfNewWarnings() > 0) {
-            summary.append("<li><a href=\"cpptestResult/new\">");
+            summary.append("<li><a href=\"CpptestResult/new\">");
             if (result.getNumberOfNewWarnings() == 1) {
                 summary.append(Messages.Cpptest_ResultAction_OneNewWarning());
             }

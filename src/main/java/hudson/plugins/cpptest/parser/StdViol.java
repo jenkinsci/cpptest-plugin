@@ -29,6 +29,8 @@ public class StdViol {
     private Integer locStartln;
     /** End Line of the violation. */
     private Integer locEndLn;
+    /** Category of the violation. */
+    private String cat;
     
     
 	public void setRule(String rule) {
@@ -93,6 +95,14 @@ public class StdViol {
 
 	public Integer getLocEndLn() {
 		return locEndLn;
+	}
+
+	public String getCat() {
+		return cat;
+	}
+
+	public void setCat(String cat) {
+		this.cat = cat;
 	}
     
 }

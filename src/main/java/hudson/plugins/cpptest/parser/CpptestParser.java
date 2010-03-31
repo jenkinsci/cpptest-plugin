@@ -116,9 +116,8 @@ public class CpptestParser extends AbstractAnnotationParser {
                     else {
                         continue; // ignore
                     }
-                    String source = viol.getRule();
-                    String type = StringUtils.substringAfterLast(source, ".");
-                    String category = StringUtils.substringAfterLast(StringUtils.substringBeforeLast(source, "."), ".");
+                    String type = viol.getRule();
+                    String category = viol.getCat();
 
                     Warning warning = new Warning(priority, viol.getMsg(), StringUtils.capitalize(category),
                             type, viol.getLocStartln(), viol.getLocEndLn());

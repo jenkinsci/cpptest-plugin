@@ -61,15 +61,15 @@ public class CpptestParser extends AbstractAnnotationParser {
             digester.addSetProperties(fileXPath);
             digester.addSetNext(fileXPath, "addFile", hudson.plugins.cpptest.parser.StdViol.class.getName());
 
-            String ruleXPath = "ResultsSession/CodingStandards/Rules/RulesList//Rule";
-            digester.addObjectCreate(ruleXPath, RuleDesc.class);
+            String ruleXPath = "ResultsSession/CodingStandards/Rules/RulesList/Rule";
+            digester.addObjectCreate(ruleXPath, hudson.plugins.cpptest.parser.RuleDesc.class);
             digester.addSetProperties(ruleXPath);
-            digester.addSetNext(ruleXPath, "addRuleDesc", RuleDesc.class.getName());
+            digester.addSetNext(ruleXPath, "addRuleDesc", hudson.plugins.cpptest.parser.RuleDesc.class.getName());
             
-            String categoryXPath = "ResultsSession/CodingStandards/Rules/CategoriesList//Category";
-            digester.addObjectCreate(categoryXPath, Category.class);
+            String categoryXPath = "ResultsSession/CodingStandards/Rules/CategoriesList/Category";
+            digester.addObjectCreate(categoryXPath, hudson.plugins.cpptest.parser.Category.class);
             digester.addSetProperties(categoryXPath);
-            digester.addSetNext(categoryXPath, "addCategory", Category.class.getName());
+            digester.addSetNext(categoryXPath, "addCategory", hudson.plugins.cpptest.parser.Category.class.getName());
             
             Cpptest module;
             module = (Cpptest)digester.parse(new InputStreamReader(file, "UTF-8"));
@@ -123,7 +123,13 @@ public class CpptestParser extends AbstractAnnotationParser {
                     }
                     String type = viol.getRule();
                     String category = viol.getCat();
-
+                    for (hudson.plugins.cpptest.parser.Category categ : collection.getCategories())
+                    {
+                    	if (categ.getName().equals(category)) 
+                    	{
+                    		category=categ.getDesc();//break;
+                    	}
+                    }
                     Warning warning = new Warning(priority, viol.getMsg(), StringUtils.capitalize(category),
                             type, viol.getLocStartln(), viol.getLocEndLn());
                     warning.setModuleName(moduleName);

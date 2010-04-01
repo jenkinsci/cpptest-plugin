@@ -15,6 +15,7 @@ import java.util.List;
  */
 public class Cpptest {
     /** All files of this violations collection. */
+	//TODO: those collections should be HashMap
     private final List<StdViol> files = new ArrayList<StdViol>();
     private final List<RuleDesc> ruleDs = new ArrayList<RuleDesc>();
     private final List<Category> categs = new ArrayList<Category>();
@@ -88,7 +89,7 @@ public class Cpptest {
 	 * @return
 	 * @see java.util.List#add(java.lang.Object)
 	 */
-	public boolean addRuleDesc(Location e) {
+	public boolean addLocation(Location e) {
 		return locs.add(e);
 	}
 }

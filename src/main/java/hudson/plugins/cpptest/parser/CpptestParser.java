@@ -70,6 +70,11 @@ public class CpptestParser extends AbstractAnnotationParser {
             digester.addObjectCreate(categoryXPath, hudson.plugins.cpptest.parser.Category.class);
             digester.addSetProperties(categoryXPath);
             digester.addSetNext(categoryXPath, "addCategory", hudson.plugins.cpptest.parser.Category.class.getName());
+    
+            String locXPath = "ResultsSession/Locations/Loc";
+            digester.addObjectCreate(locXPath, hudson.plugins.cpptest.parser.Location.class);
+            digester.addSetProperties(locXPath);
+            digester.addSetNext(locXPath, "addLocation", hudson.plugins.cpptest.parser.Location.class.getName());
             
             Cpptest module;
             module = (Cpptest)digester.parse(new InputStreamReader(file, "UTF-8"));
@@ -121,8 +126,10 @@ public class CpptestParser extends AbstractAnnotationParser {
                     else {
                         continue; // ignore
                     }
+                    
                     String type = viol.getRule();
                     String category = viol.getCat();
+                    
                     for (hudson.plugins.cpptest.parser.Category categ : collection.getCategories())
                     {
                     	if (categ.getName().equals(category)) 
@@ -130,8 +137,12 @@ public class CpptestParser extends AbstractAnnotationParser {
                     		category=categ.getDesc();break;
                     	}
                     }
+                    
                     Warning warning = new Warning(priority, viol.getMsg(), StringUtils.capitalize(category),
                             type, viol.getLocStartln(), viol.getLocEndLn());
+                    
+                    warning.setFileName(viol.getLocFile());
+                    
                     for (hudson.plugins.cpptest.parser.RuleDesc rule : collection.getRuleDescs())
                     {
                     	if (rule.getId().equals(viol.getRule())) 
@@ -139,9 +150,17 @@ public class CpptestParser extends AbstractAnnotationParser {
                     		warning.setDesc(rule.getDesc());break;
                     	}
                     }
-                    //TODO: those settings need to be modify to work properly with C++Test
-                    warning.setModuleName(moduleName);
-                    warning.setFileName(viol.getLocFile());
+
+                    for (hudson.plugins.cpptest.parser.Location loc : collection.getLocations())
+                    {
+                    	if (loc.getLoc().equals(viol.getLocFile()))
+                    	{
+                    		warning.setFileName(loc.getFsPath());break;
+                    	}
+                    }
+                                        
+                    //TODO: module and package settings need to be modify to work properly for C++Test purpose
+                    warning.setModuleName(moduleName);                    
                     warning.setPackageName(packageName);
 
                     try {

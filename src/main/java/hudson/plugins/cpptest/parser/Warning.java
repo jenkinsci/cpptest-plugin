@@ -2,7 +2,6 @@ package hudson.plugins.cpptest.parser;
 
 import hudson.plugins.analysis.util.model.AbstractAnnotation;
 import hudson.plugins.analysis.util.model.Priority;
-import hudson.plugins.cpptest.rules.CpptestRules;
 
 /**
  * A serializable Java Bean class representing a warning.
@@ -18,7 +17,9 @@ public class Warning extends AbstractAnnotation {
     /** Unique identifier of this class. */
     private static final long serialVersionUID = 5171663552905752370L;
     /** Origin of the annotation. */
-    public static final String ORIGIN = "cpptest";
+    public static final String ORIGIN = "cpptest";    
+    /** Description of the rule reported in this waring */
+    private String desc = "No description available.";
 
     /**
      * Creates a new instance of {@link Warning}.
@@ -62,8 +63,22 @@ public class Warning extends AbstractAnnotation {
 
     /** {@inheritDoc} */
     public String getToolTip() {
-        return CpptestRules.getInstance().getDescription(getType());
+    	return desc;
     }
+
+	/**
+	 * @return the desc
+	 */
+	public String getDesc() {
+		return desc;
+	}
+
+	/**
+	 * @param desc the desc to set
+	 */
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
 
     
 }

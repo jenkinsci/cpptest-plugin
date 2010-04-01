@@ -127,11 +127,19 @@ public class CpptestParser extends AbstractAnnotationParser {
                     {
                     	if (categ.getName().equals(category)) 
                     	{
-                    		category=categ.getDesc();//break;
+                    		category=categ.getDesc();break;
                     	}
                     }
                     Warning warning = new Warning(priority, viol.getMsg(), StringUtils.capitalize(category),
                             type, viol.getLocStartln(), viol.getLocEndLn());
+                    for (hudson.plugins.cpptest.parser.RuleDesc rule : collection.getRuleDescs())
+                    {
+                    	if (rule.getId().equals(viol.getRule())) 
+                    	{
+                    		warning.setDesc(rule.getDesc());break;
+                    	}
+                    }
+                    //TODO: those settings need to be modify to work properly with C++Test
                     warning.setModuleName(moduleName);
                     warning.setFileName(viol.getLocFile());
                     warning.setPackageName(packageName);

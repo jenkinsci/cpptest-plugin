@@ -13,5 +13,6 @@ rmdir /S /Q "%HOMEDRIVE%%HOMEPATH%\.hudson\plugins\cpptest"
 d:
 cd D:\checkout\hudson\trunk\plugins\cpptest
 call mvn -o package
+REM call mvn install
 copy ".\target\cpptest.hpi" "%HOMEDRIVE%%HOMEPATH%\.hudson\plugins\"
 java -jar "%HOMEDRIVE%%HOMEPATH%\.hudson\hudson.war"

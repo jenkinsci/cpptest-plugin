@@ -1,1 +1,2 @@
-- Add Static Analysis(NQH is working on basic module) and Code Review 
+- Add Static Analysis (done)
+- Add Code Review 

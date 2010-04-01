@@ -1,2 +1,0 @@
-- Add Static Analysis (done)
-- Add Code Review 

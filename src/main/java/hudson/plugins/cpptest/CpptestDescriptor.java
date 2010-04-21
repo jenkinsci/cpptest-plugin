@@ -15,7 +15,7 @@ public final class CpptestDescriptor extends PluginDescriptor {
     /** Plug-in name. */
     private static final String PLUGIN_NAME = "Cpptest";
     /** Icon to use for the result and project action. */
-    private static final String ACTION_ICON = "/plugin/Cpptest/icons/Cpptest-24x24.png";
+    private static final String ACTION_ICON = "/plugin/cpptest/icons/Cpptest-24x24.png";
 
     /**
      * Instantiates a new find bugs descriptor.

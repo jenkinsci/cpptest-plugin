@@ -1,14 +1,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
 
-   <parent>
-      <groupId>org.jvnet.hudson.plugins</groupId>
-      <artifactId>analysis-pom</artifactId>
-      <version>1.2</version>
-      <relativePath>../analysis-pom/pom.xml</relativePath>
-   </parent>
+    <parent>
+        <groupId>org.jvnet.hudson.plugins</groupId>
+        <artifactId>plugin</artifactId>
+        <version>1.350</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
    <artifactId>cpptest</artifactId>
-   <version>0.4-SNAPSHOT</version>
+   <version>0.4</version>
    <packaging>hpi</packaging>
    <name>Hudson Cpptest plugin</name>
    <url>http://wiki.hudson-ci.org/display/HUDSON/Cpptest+Plugin</url>
@@ -59,7 +60,7 @@
       <dependency>
          <groupId>org.jvnet.hudson.plugins</groupId>
          <artifactId>analysis-core</artifactId>
-         <version>1.4</version>
+         <version>1.5</version>
       </dependency>
 
       <dependency>
@@ -88,4 +89,10 @@
          </plugin>
       </plugins>
    </build>
+
+  <scm>
+    <connection>scm:svn:https://guest@svn.dev.java.net/svn/hudson/tags/cpptest-0.4</connection>
+    <developerConnection>scm:svn:https://svn.dev.java.net/svn/hudson/tags/cpptest-0.4</developerConnection>
+    <url>https://hudson.dev.java.net/source/browse/hudson/tags/cpptest-0.4</url>
+  </scm>
 </project>

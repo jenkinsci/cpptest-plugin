@@ -23,6 +23,7 @@
 
 package com.thalesgroup.hudson.plugins.cpptest;
 
+import com.thalesgroup.hudson.library.tusarconversion.TestsTools;
 import com.thalesgroup.hudson.plugins.xunit.types.XUnitType;
 import com.thalesgroup.hudson.plugins.xunit.types.XUnitTypeDescriptor;
 import hudson.Extension;
@@ -30,14 +31,9 @@ import org.kohsuke.stapler.DataBoundConstructor;
 
 public class CpptestUnitTest extends XUnitType {
 
-
     @DataBoundConstructor
     public CpptestUnitTest(String pattern, boolean faildedIfNotNew, boolean deleteJUnitFiles) {
-        super(pattern, faildedIfNotNew, deleteJUnitFiles);
-    }
-
-    public String getXsl() {
-        return "cpptest-to-junit.xsl";
+        super(TestsTools.CPPTEST, pattern, faildedIfNotNew, deleteJUnitFiles);
     }
 
     public XUnitTypeDescriptor<?> getDescriptor() {
@@ -53,13 +49,12 @@ public class CpptestUnitTest extends XUnitType {
 
         @Override
         public String getDisplayName() {
-            return Messages.cpptest_PublisherName();
+            return TestsTools.CPPTEST.getLabel();
         }
 
-        @Override
         public String getId() {
             return "cpptest";
         }
-
     }
+
 }

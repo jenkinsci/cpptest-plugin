@@ -9,7 +9,7 @@
     </parent>
 
     <artifactId>cpptest</artifactId>
-    <version>0.5</version>
+    <version>0.6-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Hudson Cpptest plugin</name>
     <url>http://wiki.hudson-ci.org/display/HUDSON/Cpptest+Plugin</url>
@@ -107,10 +107,4 @@
             </plugin>
         </plugins>
     </build>
-
-  <scm>
-    <connection>scm:svn:https://guest@svn.dev.java.net/svn/hudson/tags/cpptest-0.5</connection>
-    <developerConnection>scm:svn:https://svn.dev.java.net/svn/hudson/tags/cpptest-0.5</developerConnection>
-    <url>https://hudson.dev.java.net/source/browse/hudson/tags/cpptest-0.5</url>
-  </scm>
 </project>

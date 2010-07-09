@@ -22,7 +22,7 @@ public class CpptestResult extends BuildResult {
     private static final long serialVersionUID = 2768250056765266658L;
 
     /**
-     * Creates a new instance of {@link CheckStyleResult}.
+     * Creates a new instance of {@link CpptestResult}.
      *
      * @param build
      *            the current build as owner of this action
@@ -36,7 +36,7 @@ public class CpptestResult extends BuildResult {
     }
 
     /**
-     * Creates a new instance of {@link CheckStyleResult}.
+     * Creates a new instance of {@link CpptestResult}.
      *
      * @param build
      *            the current build as owner of this action
@@ -63,6 +63,7 @@ public class CpptestResult extends BuildResult {
      *
      * @return the summary message
      */
+    @SuppressWarnings("unused")
     public String getSummary() {
         return ResultSummary.createSummary(this);
     }

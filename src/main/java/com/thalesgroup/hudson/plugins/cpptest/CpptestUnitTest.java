@@ -1,5 +1,5 @@
 /*******************************************************************************
- * Copyright (c) 2009 Thales Corporate Services SAS                             *
+ * Copyright (c) 2010 Thales Corporate Services SAS                             *
  * Author : Gregory Boissinot                                                   *
  *                                                                              *
  * Permission is hereby granted, free of charge, to any person obtaining a copy *
@@ -23,38 +23,29 @@
 
 package com.thalesgroup.hudson.plugins.cpptest;
 
-import com.thalesgroup.hudson.library.tusarconversion.TestsTools;
+import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.TestTypeDescriptor;
 import com.thalesgroup.hudson.plugins.xunit.types.XUnitType;
-import com.thalesgroup.hudson.plugins.xunit.types.XUnitTypeDescriptor;
-import hudson.Extension;
-import org.kohsuke.stapler.DataBoundConstructor;
 
+
+@SuppressWarnings("unused")
 public class CpptestUnitTest extends XUnitType {
 
-    @DataBoundConstructor
     public CpptestUnitTest(String pattern, boolean faildedIfNotNew, boolean deleteJUnitFiles) {
-        super(TestsTools.CPPTEST, pattern, faildedIfNotNew, deleteJUnitFiles);
+        super(pattern, faildedIfNotNew, deleteJUnitFiles);
     }
 
-    public XUnitTypeDescriptor<?> getDescriptor() {
-        return new CpptestUnitTest.DescriptorImpl();
+    public TestTypeDescriptor getDescriptor() {
+        return null;
     }
 
-    @Extension
-    public static class DescriptorImpl extends XUnitTypeDescriptor<CpptestUnitTest> {
-
-        public DescriptorImpl() {
-            super(CpptestUnitTest.class);
-        }
-
-        @Override
-        public String getDisplayName() {
-            return TestsTools.CPPTEST.getLabel();
-        }
-
-        public String getId() {
-            return "cpptest";
-        }
+    /**
+     * Call at Hudson startup for backward compatibility
+     *
+     * @return an new hudson object
+     */
+    @SuppressWarnings("unused")
+    public Object readResolve() {
+        return new CpptestPluginType(this.getPattern(), this.isFaildedIfNotNew(), this.isDeleteJUnitFiles());
     }
 
 }

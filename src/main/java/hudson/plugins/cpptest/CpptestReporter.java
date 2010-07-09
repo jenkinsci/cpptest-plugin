@@ -93,6 +93,7 @@ public class CpptestReporter extends HealthAwareMavenReporter {
 
     /** {@inheritDoc} */
     @Override
+    @SuppressWarnings("deprecation")
     public Action getProjectAction(final MavenModule module) {
         return new CpptestProjectAction(module);
     }

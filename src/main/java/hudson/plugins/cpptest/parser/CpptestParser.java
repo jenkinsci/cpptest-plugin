@@ -139,7 +139,7 @@ public class CpptestParser extends AbstractAnnotationParser {
                     }
                     
                     Warning warning = new Warning(priority, viol.getMsg(), StringUtils.capitalize(category),
-                            type, viol.getLocStartln(), viol.getLocEndLn());
+                            type, viol.getLn(), viol.getLn());
                     
                     warning.setFileName(viol.getLocFile());
                     

@@ -16,6 +16,7 @@ import org.kohsuke.stapler.StaplerRequest;
  * NQH: adapt for Cpptest
  */
 @Extension(ordinal = 100)
+@SuppressWarnings("unused")
 public class CpptestReporterDescriptor extends ReporterDescriptor {
     /**
      * Creates a new instance of <code>CpptestReporterDescriptor</code>.

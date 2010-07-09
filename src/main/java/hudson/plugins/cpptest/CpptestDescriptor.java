@@ -12,6 +12,7 @@ import hudson.plugins.analysis.core.PluginDescriptor;
  */
 @Extension(ordinal = 100)
 public final class CpptestDescriptor extends PluginDescriptor {
+    
     /** Plug-in name. */
     private static final String PLUGIN_NAME = "Cpptest";
     /** Icon to use for the result and project action. */

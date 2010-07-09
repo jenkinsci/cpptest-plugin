@@ -1,6 +1,6 @@
 /*******************************************************************************
- * Copyright (c) 2009 Thales Corporate Services SAS                             *
- * Author : Gregory Boissinot                                                   *
+ * Copyright (c) 2010 Thales Corporate Services SAS                             *
+ * Author : Gregory Boissinot, Guillaume Tanier                                 *
  *                                                                              *
  * Permission is hereby granted, free of charge, to any person obtaining a copy *
  * of this software and associated documentation files (the "Software"), to deal*
@@ -23,14 +23,12 @@
 
 package com.thalesgroup.hudson.plugins.cpptest;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.InputStream;
+import java.io.*;
 
-public class XUnitXSLUtil {
 
-    public static String readXmlAsString(InputStream input)
+public class XSLUtil {
+
+    public static String readXmlAsString(File input)
             throws IOException {
         String xmlString = "";
 
@@ -38,13 +36,17 @@ public class XUnitXSLUtil {
             throw new IOException("The input stream object is null.");
         }
 
-        BufferedReader reader = new BufferedReader(new InputStreamReader(input));
-        String line = reader.readLine();
+        FileInputStream fileInputStream = new FileInputStream(input);
+        InputStreamReader inputStreamReader = new InputStreamReader(fileInputStream);
+        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+        String line = bufferedReader.readLine();
         while (line != null) {
             xmlString += line + "\n";
-            line = reader.readLine();
+            line = bufferedReader.readLine();
         }
-        reader.close();
+        fileInputStream.close();
+        fileInputStream.close();
+        bufferedReader.close();
 
         return xmlString;
     }

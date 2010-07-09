@@ -19,8 +19,6 @@ import hudson.plugins.analysis.core.PluginDescriptor;
  * NQH: adapt for Cpptest
  */
 public class CpptestResultAction extends AbstractResultAction<CpptestResult> {
-    /** Unique identifier of this class. */
-    private static final long serialVersionUID = -5329651349674842873L;
 
     /**
      * Creates a new instance of <code>CpptestResultAction</code>.

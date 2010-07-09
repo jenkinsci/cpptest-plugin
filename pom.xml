@@ -10,7 +10,7 @@
     </parent>
 
     <artifactId>cpptest</artifactId>
-    <version>0.4.1-SNAPSHOT</version>
+    <version>0.5-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Hudson Cpptest plugin</name>
     <url>http://wiki.hudson-ci.org/display/HUDSON/Cpptest+Plugin</url>
@@ -41,13 +41,13 @@
         <dependency>
             <groupId>org.jvnet.hudson.plugins</groupId>
             <artifactId>xunit</artifactId>
-            <version>0.7-SNAPSHOT</version>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.7</version>
+            <version>4.8.1</version>
             <scope>test</scope>
         </dependency>
 

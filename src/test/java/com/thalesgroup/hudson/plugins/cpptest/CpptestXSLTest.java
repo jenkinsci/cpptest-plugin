@@ -24,16 +24,13 @@
 package com.thalesgroup.hudson.plugins.cpptest;
 
 import org.junit.Test;
-import com.thalesgroup.hudson.library.tusarconversion.TestsTools;
 
 public class CpptestXSLTest extends AbstractXUnitXSLTest {
 
-    public CpptestXSLTest() {
-        super(CpptestUnitTest.class);
-    }
 
     @Test
     public void testcase1() throws Exception {
-        conversion(TestsTools.CPPTEST, "testcase1/result.xml", "testcase1/junit-result.xml");
+
+        convertAndValidate(CpptestInputMetric.class, "testcase1/result.xml", "testcase1/junit-result.xml");
     }
 }

@@ -13,9 +13,10 @@ import java.util.List;
  * NQH: adapt for Cpptest
  * NQH: add rule description & category implementation & location
  */
+@SuppressWarnings("unused")
 public class Cpptest {
+
     /** All files of this violations collection. */
-	//TODO: those collections should be HashMap
     private final List<StdViol> files = new ArrayList<StdViol>();
     private final List<RuleDesc> ruleDs = new ArrayList<RuleDesc>();
     private final List<Category> categs = new ArrayList<Category>();
@@ -68,8 +69,8 @@ public class Cpptest {
         return Collections.unmodifiableCollection(locs);
     }
 	/**
-	 * @param e
-	 * @return
+	 * @param e the category
+	 * @return  true if OK, false otherwise
 	 * @see java.util.List#add(java.lang.Object)
 	 */
 	public boolean addCategory(Category e) {
@@ -77,16 +78,16 @@ public class Cpptest {
 	}
 
 	/**
-	 * @param e
-	 * @return
+	 * @param e  the result description
+	 * @return true if OK, false otherwise
 	 * @see java.util.List#add(java.lang.Object)
 	 */
 	public boolean addRuleDesc(RuleDesc e) {
 		return ruleDs.add(e);
 	}
 	/**
-	 * @param e
-	 * @return
+	 * @param e  the result description
+	 * @return  true if OK, false otherwise
 	 * @see java.util.List#add(java.lang.Object)
 	 */
 	public boolean addLocation(Location e) {

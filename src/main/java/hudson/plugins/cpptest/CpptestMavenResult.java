@@ -12,6 +12,7 @@ import hudson.plugins.analysis.core.ResultAction;
  * 
  * NQH: adapt for Cpptest
  */
+@SuppressWarnings("unused")
 public class CpptestMavenResult extends CpptestResult {
     /** Unique ID of this class. */
     private static final long serialVersionUID = -4913938782537266259L;

@@ -23,8 +23,7 @@ import java.util.Map;
  * NQH: adapt for Cpptest
  */
 public class MavenCpptestResultAction extends CpptestResultAction implements AggregatableAction, MavenAggregatedReport {
-    /** Unique identifier of this class. */
-    private static final long serialVersionUID = 1273798369273225973L;
+
     /** The default encoding to be used when reading and parsing files. */
     private final String defaultEncoding;
 
@@ -101,12 +100,10 @@ public class MavenCpptestResultAction extends CpptestResultAction implements Agg
     private transient String height;
 
 	public String getIconFileName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	public String getUrlName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

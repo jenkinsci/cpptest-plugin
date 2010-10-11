@@ -29,7 +29,7 @@ public class CpptestInputMetric extends InputMetricXSL {
     }
 
     @Override
-    public String getInputXsd() {
+    public String[] getInputXsdNameList() {
         return null;
     }
 

@@ -43,9 +43,11 @@
 				</tbody>
 			</table>
 
-	        <st:include page="/summaryTable.jelly" />
+	        <!--<st:include page="/summaryTable.jelly" />-->
+            <st:include page="/result/priorities-summary.jelly" />
 
-	        <st:include page="/tabview/main.jelly" />
+	        <!--<st:include page="/tabview/main.jelly" />-->
+            <st:include page="/result/main.jelly" />
 
 		</l:main-panel>
 	</l:layout>

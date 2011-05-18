@@ -63,7 +63,6 @@ public class CpptestResult extends BuildResult {
      *
      * @return the summary message
      */
-    @SuppressWarnings("unused")
     public String getSummary() {
         return ResultSummary.createSummary(this);
     }

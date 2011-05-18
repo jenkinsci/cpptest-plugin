@@ -6,8 +6,6 @@
 		checkUrl="'descriptorByName/CpptestPublisher/checkPattern?value='+escape(this.value)" />
   </f:entry>
   <f:advanced>
-    <u:thresholds id="cpptest"/>
-    <u:defaultEncoding id="cpptest"/>
-    <u:trend id="cpptest"/>
+    <u:advanced id="cpptest"/>
   </f:advanced>
 </j:jelly>

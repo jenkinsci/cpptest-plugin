@@ -13,7 +13,6 @@ import java.util.List;
  * NQH: adapt for Cpptest
  * NQH: add rule description & category implementation & location
  */
-@SuppressWarnings("unused")
 public class Cpptest {
 
     /** All files of this violations collection. */

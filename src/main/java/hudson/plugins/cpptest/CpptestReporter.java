@@ -12,6 +12,8 @@ import hudson.plugins.analysis.util.PluginLogger;
 import hudson.plugins.cpptest.parser.CpptestParser;
 
 import java.io.IOException;
+import java.util.Collection;
+import java.util.Collections;
 
 import org.apache.maven.project.MavenProject;
 import org.kohsuke.stapler.DataBoundConstructor;
@@ -24,84 +26,87 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * NQH: adapt for Cpptest
  */
 public class CpptestReporter extends HealthAwareMavenReporter {
-    /** Unique identifier of this class. */
-    private static final long serialVersionUID = 2272875032054063496L;
+	/** Unique identifier of this class. */
+	private static final long serialVersionUID = 2272875032054063496L;
 
-    /** Default Cpptest pattern. */
-    private static final String Cpptest_XML_FILE = "Cpptest-result.xml";
+	/** Default Cpptest pattern. */
+	private static final String Cpptest_XML_FILE = "Cpptest-result.xml";
 
-    /**
-     * Creates a new instance of <code>CpptestReporter</code>.
-     *
-     * @param threshold
-     *            Annotation threshold to be reached if a build should be considered as
-     *            unstable.
-     * @param newThreshold
-     *            New annotations threshold to be reached if a build should be
-     *            considered as unstable.
-     * @param failureThreshold
-     *            Annotation threshold to be reached if a build should be considered as
-     *            failure.
-     * @param newFailureThreshold
-     *            New annotations threshold to be reached if a build should be
-     *            considered as failure.
-     * @param healthy
-     *            Report health as 100% when the number of warnings is less than
-     *            this value
-     * @param unHealthy
-     *            Report health as 0% when the number of warnings is greater
-     *            than this value
-     * @param thresholdLimit
-     *            determines which warning priorities should be considered when
-     *            evaluating the build stability and health
-     */
-    // Cpptest:OFF
-    @SuppressWarnings("PMD.ExcessiveParameterList")
-    @DataBoundConstructor
-    public CpptestReporter(final String threshold, final String newThreshold,
-            final String failureThreshold, final String newFailureThreshold,
-            final String healthy, final String unHealthy, final String thresholdLimit) {
-        super(threshold, newThreshold, failureThreshold, newFailureThreshold,
-                healthy, unHealthy, thresholdLimit, "Cpptest");
-    }
-    // Cpptest:ON
+	/**
+	 * Creates a new instance of <code>CpptestReporter</code>.
+	 *
+	 * @param threshold
+	 *            Annotation threshold to be reached if a build should be considered as
+	 *            unstable.
+	 * @param newThreshold
+	 *            New annotations threshold to be reached if a build should be
+	 *            considered as unstable.
+	 * @param failureThreshold
+	 *            Annotation threshold to be reached if a build should be considered as
+	 *            failure.
+	 * @param newFailureThreshold
+	 *            New annotations threshold to be reached if a build should be
+	 *            considered as failure.
+	 * @param healthy
+	 *            Report health as 100% when the number of warnings is less than
+	 *            this value
+	 * @param unHealthy
+	 *            Report health as 0% when the number of warnings is greater
+	 *            than this value
+	 * @param thresholdLimit
+	 *            determines which warning priorities should be considered when
+	 *            evaluating the build stability and health
+	 */
+	// Cpptest:OFF
+	@SuppressWarnings("PMD.ExcessiveParameterList")
+	@DataBoundConstructor
+	public CpptestReporter(final String threshold, final String newThreshold,
+			final String failureThreshold, final String newFailureThreshold,
+			final String healthy, final String unHealthy, final String thresholdLimit) {
+		super(threshold, newThreshold, failureThreshold, newFailureThreshold,
+				healthy, unHealthy, thresholdLimit, false, "Cpptest");
+	}
+	// Cpptest:ON
 
-    /** {@inheritDoc} */
-    @Override
-    protected boolean acceptGoal(final String goal) {
-        return "Cpptest".equals(goal) || "site".equals(goal);
-    }
+	/** {@inheritDoc} */
+	@Override
+	protected boolean acceptGoal(final String goal) {
+		return "Cpptest".equals(goal) || "site".equals(goal);
+	}
 
-    /** {@inheritDoc} */
-    @Override
-    public ParserResult perform(final MavenBuildProxy build, final MavenProject pom,
-            final MojoInfo mojo, final PluginLogger logger) throws InterruptedException, IOException {
-        FilesParser CpptestCollector = new FilesParser(logger, Cpptest_XML_FILE, new CpptestParser(getDefaultEncoding()), true, false);
+	/** {@inheritDoc} */
+	@Override
+	public ParserResult perform(final MavenBuildProxy build, final MavenProject pom,
+			final MojoInfo mojo, final PluginLogger logger) throws InterruptedException, IOException {
+		FilesParser CpptestCollector = new FilesParser(logger, Cpptest_XML_FILE, new CpptestParser(getDefaultEncoding()), true);
 
-        return getTargetPath(pom).act(CpptestCollector);
-    }
+		return getTargetPath(pom).act(CpptestCollector);
+	}
 
-    /** {@inheritDoc} */
-    @Override
-    protected CpptestResult persistResult(final ParserResult project, final MavenBuild build) {
-        CpptestResult result = new CpptestResult(build, getDefaultEncoding(), project);
-        build.getActions().add(new MavenCpptestResultAction(build, this, getDefaultEncoding(), result));
-        build.registerAsProjectAction(CpptestReporter.this);
+	/** {@inheritDoc} */
+	@Override
+	protected CpptestResult persistResult(final ParserResult project, final MavenBuild build) {
+		CpptestResult result = new CpptestResult(build, getDefaultEncoding(), project);
+		build.getActions().add(new MavenCpptestResultAction(build, this, getDefaultEncoding(), result));
+		build.registerAsProjectAction(CpptestReporter.this);
 
-        return result;
-    }
+		return result;
+	}
 
-    /** {@inheritDoc} */
-    @Override
-    @SuppressWarnings("deprecation")
-    public Action getProjectAction(final MavenModule module) {
-        return new CpptestProjectAction(module);
-    }
+	/** {@inheritDoc} */
+	@Override
+	public Collection<? extends Action> getProjectActions(MavenModule module) {
+		Action cpptestProjectAction = new CpptestProjectAction(module);
+		if (cpptestProjectAction==null){
+			return Collections.emptyList();
+		}
+		return Collections.singletonList(cpptestProjectAction);
+	}
 
-    /** {@inheritDoc} */
-    @Override
-    protected Class<? extends Action> getResultActionClass() {
-        return MavenCpptestResultAction.class;
-    }
+	/** {@inheritDoc} */
+	@Override
+	protected Class<? extends Action> getResultActionClass() {
+		return MavenCpptestResultAction.class;
+	}
 }
 

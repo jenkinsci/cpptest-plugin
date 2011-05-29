@@ -126,4 +126,10 @@
             </plugin>
         </plugins>
     </build>
+
+    <scm>
+        <connection>scm:git:git://github.com/jenkinsci/cpptest-plugin.git</connection>
+        <developerConnection>scm:git:git@github.com:jenkinsci/cpptest-plugin.git</developerConnection>
+    </scm>
+
 </project>

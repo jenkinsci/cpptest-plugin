@@ -20,6 +20,7 @@ import org.xml.sax.SAXException;
  * A parser for Cpptest XML files.
  *
  * @author Ulli Hafner
+ * @author Aurelien Hebert
  * 
  * NQH: adapt for Cpptest
  */
@@ -60,6 +61,12 @@ public class CpptestParser extends AbstractAnnotationParser {
             digester.addObjectCreate(fileXPath, hudson.plugins.cpptest.parser.StdViol.class);
             digester.addSetProperties(fileXPath);
             digester.addSetNext(fileXPath, "addFile", hudson.plugins.cpptest.parser.StdViol.class.getName());
+
+			//Change for update 0.10 : To use FlowViol
+			fileXPath = "ResultsSession/CodingStandards/StdViols/FlowViol";
+            digester.addObjectCreate(fileXPath, hudson.plugins.cpptest.parser.FlowViol.class);
+            digester.addSetProperties(fileXPath);
+            digester.addSetNext(fileXPath, "addFile", hudson.plugins.cpptest.parser.FlowViol.class.getName());
 
             String ruleXPath = "ResultsSession/CodingStandards/Rules/RulesList/Rule";
             digester.addObjectCreate(ruleXPath, hudson.plugins.cpptest.parser.RuleDesc.class);

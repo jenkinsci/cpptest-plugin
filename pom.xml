@@ -9,7 +9,7 @@
 
     <groupId>com.thalesgroup.jenkins-ci.plugins</groupId>
     <artifactId>cpptest</artifactId>
-    <version>0.10-SNAPSHOT</version>
+    <version>0.10</version>
     <packaging>hpi</packaging>
     <name>Jenkins Cpptest plugin</name>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/Cpptest+Plugin</url>
@@ -24,7 +24,7 @@
     <developers>
 	<developer>
 	    <id>ahebert</id> 
-            <name>Aurélien Hebert</name> 
+            <name>Aurï¿½lien Hebert</name> 
             <email>aurrelhebert@gmail.com</email> 
 	    <timezone>+1</timezone> 
 	</developer>

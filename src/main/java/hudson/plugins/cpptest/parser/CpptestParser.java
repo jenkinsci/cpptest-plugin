@@ -67,6 +67,12 @@ public class CpptestParser extends AbstractAnnotationParser {
             digester.addObjectCreate(fileXPath, hudson.plugins.cpptest.parser.FlowViol.class);
             digester.addSetProperties(fileXPath);
             digester.addSetNext(fileXPath, "addFile", hudson.plugins.cpptest.parser.FlowViol.class.getName());
+            
+            //Change for the detection of Metrics Violations :
+            fileXPath = "ResultsSession/CodingStandards/StdViols/MetViol";
+            digester.addObjectCreate(fileXPath, hudson.plugins.cpptest.parser.MetViol.class);
+            digester.addSetProperties(fileXPath);
+            digester.addSetNext(fileXPath, "addFile", hudson.plugins.cpptest.parser.MetViol.class.getName());
 
             String ruleXPath = "ResultsSession/CodingStandards/Rules/RulesList/Rule";
             digester.addObjectCreate(ruleXPath, hudson.plugins.cpptest.parser.RuleDesc.class);

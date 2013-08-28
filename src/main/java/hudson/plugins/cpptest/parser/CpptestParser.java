@@ -118,7 +118,7 @@ public class CpptestParser extends AbstractAnnotationParser {
         ArrayList<FileAnnotation> annotations = new ArrayList<FileAnnotation>();
 
         for (hudson.plugins.cpptest.parser.StdViol viol : collection.getFiles()) {
-            if (isValidWarning(viol)) {
+            if (isValidWarning(viol) && isSuppressedWarning(viol)) { 
                 String packageName = new JavaPackageDetector().detectPackageName(viol.getRule());
                 Priority priority;
                     if ("1".equalsIgnoreCase(viol.getSev())) {
@@ -199,5 +199,16 @@ public class CpptestParser extends AbstractAnnotationParser {
     private boolean isValidWarning(final hudson.plugins.cpptest.parser.StdViol viol) {
         return !viol.getRule().endsWith("package.html");
     }
+    
+    /**
+    * Returns <code>true</code> if this warning is valid or <code>false</code>
+    * if the warning can't be processed by the Cpptest plug-in.
+    *  
+    * @param  file the file to check
+    * @return <code>true</code> if this warning is not suppressed
+    */
+    private boolean isSuppressedWarning(final hudson.plugins.cpptest.parser.StdViol viol) {
+	   return !("true".equalsIgnoreCase(viol.getSupp()));
+    } 
 }
 

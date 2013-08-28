@@ -26,6 +26,8 @@ public class StdViol {
     private Integer locEndLn;
     /** Category of the violation. */
     private String cat;
+    /** Suppressed violation. */
+    private String supp; 
     
     
 	public void setRule(String rule) {
@@ -99,6 +101,14 @@ public class StdViol {
 	public void setCat(String cat) {
 		this.cat = cat;
 	}
+	
+	public String getSupp() {
+	        return supp;
+	}
+	
+	public void setSupp(String supp) {
+		this.supp = supp;
+	} 
     
 }
 

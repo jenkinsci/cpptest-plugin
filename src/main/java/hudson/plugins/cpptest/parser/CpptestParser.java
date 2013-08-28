@@ -62,11 +62,17 @@ public class CpptestParser extends AbstractAnnotationParser {
             digester.addSetProperties(fileXPath);
             digester.addSetNext(fileXPath, "addFile", hudson.plugins.cpptest.parser.StdViol.class.getName());
 
-			//Change for update 0.10 : To use FlowViol
-			fileXPath = "ResultsSession/CodingStandards/StdViols/FlowViol";
+	    //Change for update 0.10 : To use FlowViol
+	    fileXPath = "ResultsSession/CodingStandards/StdViols/FlowViol";
             digester.addObjectCreate(fileXPath, hudson.plugins.cpptest.parser.FlowViol.class);
             digester.addSetProperties(fileXPath);
             digester.addSetNext(fileXPath, "addFile", hudson.plugins.cpptest.parser.FlowViol.class.getName());
+            
+            //Change for the detection of Metrics Violations :
+            fileXPath = "ResultsSession/CodingStandards/StdViols/MetViol";
+            digester.addObjectCreate(fileXPath, hudson.plugins.cpptest.parser.MetViol.class);
+            digester.addSetProperties(fileXPath);
+            digester.addSetNext(fileXPath, "addFile", hudson.plugins.cpptest.parser.MetViol.class.getName());
 
             String ruleXPath = "ResultsSession/CodingStandards/Rules/RulesList/Rule";
             digester.addObjectCreate(ruleXPath, hudson.plugins.cpptest.parser.RuleDesc.class);
@@ -112,7 +118,7 @@ public class CpptestParser extends AbstractAnnotationParser {
         ArrayList<FileAnnotation> annotations = new ArrayList<FileAnnotation>();
 
         for (hudson.plugins.cpptest.parser.StdViol viol : collection.getFiles()) {
-            if (isValidWarning(viol)) {
+            if (isValidWarning(viol) && isSuppressedWarning(viol)) { 
                 String packageName = new JavaPackageDetector().detectPackageName(viol.getRule());
                 Priority priority;
                     if ("1".equalsIgnoreCase(viol.getSev())) {
@@ -193,5 +199,16 @@ public class CpptestParser extends AbstractAnnotationParser {
     private boolean isValidWarning(final hudson.plugins.cpptest.parser.StdViol viol) {
         return !viol.getRule().endsWith("package.html");
     }
+    
+    /**
+    * Returns <code>true</code> if this warning is valid or <code>false</code>
+    * if the warning can't be processed by the Cpptest plug-in.
+    *  
+    * @param  file the file to check
+    * @return <code>true</code> if this warning is not suppressed
+    */
+    private boolean isSuppressedWarning(final hudson.plugins.cpptest.parser.StdViol viol) {
+	   return !("true".equalsIgnoreCase(viol.getSupp()));
+    } 
 }
 

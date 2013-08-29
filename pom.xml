@@ -9,7 +9,7 @@
 
     <groupId>com.thalesgroup.jenkins-ci.plugins</groupId>
     <artifactId>cpptest</artifactId>
-    <version>0.11</version>
+    <version>0.12-SNAPSHOT</version>
     <packaging>hpi</packaging>
     <name>Jenkins Cpptest plugin</name>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/Cpptest+Plugin</url>

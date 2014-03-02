@@ -5,17 +5,17 @@ import java.util.regex.Pattern;
 
 /**
  * A simple comparison function for dot-separated version numbers.
- *
+ * <p/>
  * It simply matches versions part-by-part with natural ordering:
  * <ul>
- *     <li>{@code 7.0 < 10.0}</li>
- *     <li>{@code 7.0 < 7.0.1}</li>
+ * <li>{@code 7.0 < 10.0}</li>
+ * <li>{@code 7.0 < 7.0.1}</li>
  * </ul>
- *
+ * <p/>
  * It won't work with alphanumerical versions such as:
  * <ul>
- *     <li>{@code 9.5.0.8-alpha}</li>
- *     <li>{@code 10.0.12.GA}</li>
+ * <li>{@code 9.5.0.8-alpha}</li>
+ * <li>{@code 10.0.12.GA}</li>
  * </ul>
  *
  * @author Dridi Boukelmoune
@@ -38,9 +38,9 @@ class VersionComparator implements Comparator<String> {
      * @param version1 the first version number to be compared.
      * @param version2 the second version number to be compared.
      * @return a negative integer, zero, or a positive integer as the
-     *         first argument is less than, equal to, or greater than the
-     *         second.
-     * @throws NullPointerException if an argument is null
+     * first argument is less than, equal to, or greater than the
+     * second.
+     * @throws NullPointerException     if an argument is null
      * @throws IllegalArgumentException if the arguments don't match {@code [0-9]+(\.[0-9]+)*}
      */
     public int compare(String version1, String version2) {
@@ -70,7 +70,7 @@ class VersionComparator implements Comparator<String> {
     }
 
     private void validate(String version) {
-        if ( ! MATCH_PATTERN.matcher(version).matches() ) {
+        if (!MATCH_PATTERN.matcher(version).matches()) {
             throw new IllegalArgumentException("Invalid version : " + version);
         }
     }

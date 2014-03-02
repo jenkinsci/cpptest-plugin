@@ -3,18 +3,19 @@ package hudson.plugins.cpptest;
 import hudson.plugins.analysis.core.AbstractHealthDescriptor;
 import hudson.plugins.analysis.core.HealthDescriptor;
 import hudson.plugins.analysis.util.model.AnnotationProvider;
-
 import org.jvnet.localizer.Localizable;
 
 /**
  * A health descriptor for Cpptest build results.
  *
  * @author Ulli Hafner
- * 
- * NQH: adapt for Cpptest
+ *         <p/>
+ *         NQH: adapt for Cpptest
  */
 public class CpptestHealthDescriptor extends AbstractHealthDescriptor {
-    /** Unique ID of this class. */
+    /**
+     * Unique ID of this class.
+     */
     private static final long serialVersionUID = -3404826986876607396L;
 
     /**
@@ -27,16 +28,16 @@ public class CpptestHealthDescriptor extends AbstractHealthDescriptor {
         super(healthDescriptor);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Localizable createDescription(final AnnotationProvider result) {
         if (result.getNumberOfAnnotations() == 0) {
             return Messages._Cpptest_ResultAction_HealthReportNoItem();
-        }
-        else if (result.getNumberOfAnnotations() == 1) {
+        } else if (result.getNumberOfAnnotations() == 1) {
             return Messages._Cpptest_ResultAction_HealthReportSingleItem();
-        }
-        else {
+        } else {
             return Messages._Cpptest_ResultAction_HealthReportMultipleItem(result.getNumberOfAnnotations());
         }
     }

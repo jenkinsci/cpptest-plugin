@@ -1,5 +1,6 @@
 package hudson.plugins.cpptest;
 
+import com.thoughtworks.xstream.XStream;
 import hudson.model.AbstractBuild;
 import hudson.plugins.analysis.core.BuildHistory;
 import hudson.plugins.analysis.core.BuildResult;
@@ -7,29 +8,26 @@ import hudson.plugins.analysis.core.ParserResult;
 import hudson.plugins.analysis.core.ResultAction;
 import hudson.plugins.cpptest.parser.Warning;
 
-import com.thoughtworks.xstream.XStream;
-
 /**
  * Represents the results of the Cpptest analysis. One instance of this class
  * is persisted for each build via an XML file.
  *
  * @author Ulli Hafner
- * 
- * NQH: adapt for Cpptest
+ *         <p/>
+ *         NQH: adapt for Cpptest
  */
 public class CpptestResult extends BuildResult {
-    /** Unique identifier of this class. */
+    /**
+     * Unique identifier of this class.
+     */
     private static final long serialVersionUID = 2768250056765266658L;
 
     /**
      * Creates a new instance of {@link CpptestResult}.
      *
-     * @param build
-     *            the current build as owner of this action
-     * @param defaultEncoding
-     *            the default encoding to be used when reading and parsing files
-     * @param result
-     *            the parsed result with all annotations
+     * @param build           the current build as owner of this action
+     * @param defaultEncoding the default encoding to be used when reading and parsing files
+     * @param result          the parsed result with all annotations
      */
     public CpptestResult(final AbstractBuild<?, ?> build, final String defaultEncoding, final ParserResult result) {
         super(build, defaultEncoding, result);
@@ -38,21 +36,19 @@ public class CpptestResult extends BuildResult {
     /**
      * Creates a new instance of {@link CpptestResult}.
      *
-     * @param build
-     *            the current build as owner of this action
-     * @param defaultEncoding
-     *            the default encoding to be used when reading and parsing files
-     * @param result
-     *            the parsed result with all annotations
-     * @param history
-     *            the plug-in history
+     * @param build           the current build as owner of this action
+     * @param defaultEncoding the default encoding to be used when reading and parsing files
+     * @param result          the parsed result with all annotations
+     * @param history         the plug-in history
      */
     protected CpptestResult(final AbstractBuild<?, ?> build, final String defaultEncoding, final ParserResult result,
-            final BuildHistory history) {
+                            final BuildHistory history) {
         super(build, defaultEncoding, result, history);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void configure(final XStream xstream) {
         xstream.alias("warning", Warning.class);
@@ -67,7 +63,9 @@ public class CpptestResult extends BuildResult {
         return ResultSummary.createSummary(this);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected String createDeltaMessage() {
         return ResultSummary.createDeltaMessage(this);
@@ -83,12 +81,16 @@ public class CpptestResult extends BuildResult {
         return "cpptest-warnings.xml";
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public String getDisplayName() {
         return Messages.Cpptest_ProjectAction_Name();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Class<? extends ResultAction<? extends BuildResult>> getResultActionType() {
         return CpptestResultAction.class;

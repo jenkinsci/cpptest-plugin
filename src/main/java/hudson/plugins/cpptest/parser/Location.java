@@ -6,25 +6,29 @@ package hudson.plugins.cpptest.parser;
  * @author NQH
  */
 public class Location {
-    /** Full path location of the file */
+    /**
+     * Full path location of the file
+     */
     private String fsPath = "no_path_defined";
-    /** short location of the file */
+    /**
+     * short location of the file
+     */
     private String loc;
-    
-	public void setFsPath(String fsPath) {
-		this.fsPath = fsPath;
-	}
 
-	public String getFsPath() {
-		return fsPath;
-	}
+    public void setFsPath(String fsPath) {
+        this.fsPath = fsPath;
+    }
 
-	public void setLoc(String loc) {
-		this.loc = loc;
-	}
+    public String getFsPath() {
+        return fsPath;
+    }
 
-	public String getLoc() {
-		return loc;
-	}    
+    public void setLoc(String loc) {
+        this.loc = loc;
+    }
+
+    public String getLoc() {
+        return loc;
+    }
 }
 

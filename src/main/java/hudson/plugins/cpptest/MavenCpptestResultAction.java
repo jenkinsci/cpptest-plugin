@@ -1,11 +1,6 @@
 package hudson.plugins.cpptest;
 
-import hudson.maven.AggregatableAction;
-import hudson.maven.MavenAggregatedReport;
-import hudson.maven.MavenBuild;
-import hudson.maven.MavenModule;
-import hudson.maven.MavenModuleSet;
-import hudson.maven.MavenModuleSetBuild;
+import hudson.maven.*;
 import hudson.model.AbstractBuild;
 import hudson.model.Action;
 import hudson.plugins.analysis.core.HealthDescriptor;
@@ -19,26 +14,25 @@ import java.util.Map;
  * project.
  *
  * @author Ulli Hafner
- * 
- * NQH: adapt for Cpptest
+ *         <p/>
+ *         NQH: adapt for Cpptest
  */
 public class MavenCpptestResultAction extends CpptestResultAction implements AggregatableAction, MavenAggregatedReport {
 
-    /** The default encoding to be used when reading and parsing files. */
+    /**
+     * The default encoding to be used when reading and parsing files.
+     */
     private final String defaultEncoding;
 
     /**
      * Creates a new instance of <code>MavenCpptestResultAction</code>.
      *
-     * @param owner
-     *            the associated build of this action
-     * @param healthDescriptor
-     *            health descriptor to use
-     * @param defaultEncoding
-     *            the default encoding to be used when reading and parsing files
+     * @param owner            the associated build of this action
+     * @param healthDescriptor health descriptor to use
+     * @param defaultEncoding  the default encoding to be used when reading and parsing files
      */
     public MavenCpptestResultAction(final AbstractBuild<?, ?> owner, final HealthDescriptor healthDescriptor,
-            final String defaultEncoding) {
+                                    final String defaultEncoding) {
         super(owner, healthDescriptor);
         this.defaultEncoding = defaultEncoding;
     }
@@ -46,32 +40,34 @@ public class MavenCpptestResultAction extends CpptestResultAction implements Agg
     /**
      * Creates a new instance of <code>MavenCpptestResultAction</code>.
      *
-     * @param owner
-     *            the associated build of this action
-     * @param healthDescriptor
-     *            health descriptor to use
-     * @param result
-     *            the result in this build
-     * @param defaultEncoding
-     *            the default encoding to be used when reading and parsing files
+     * @param owner            the associated build of this action
+     * @param healthDescriptor health descriptor to use
+     * @param result           the result in this build
+     * @param defaultEncoding  the default encoding to be used when reading and parsing files
      */
     public MavenCpptestResultAction(final AbstractBuild<?, ?> owner, final HealthDescriptor healthDescriptor,
-            final String defaultEncoding, final CpptestResult result) {
+                                    final String defaultEncoding, final CpptestResult result) {
         super(owner, healthDescriptor, result);
         this.defaultEncoding = defaultEncoding;
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public MavenAggregatedReport createAggregatedAction(final MavenModuleSetBuild build, final Map<MavenModule, List<MavenBuild>> moduleBuilds) {
         return new MavenCpptestResultAction(build, getHealthDescriptor(), defaultEncoding);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Action getProjectAction(final MavenModuleSet moduleSet) {
         return new CpptestProjectAction(moduleSet);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public Class<? extends AggregatableAction> getIndividualActionType() {
         return getClass();
     }
@@ -82,11 +78,9 @@ public class MavenCpptestResultAction extends CpptestResultAction implements Agg
      * the execution of this method, so this method needs not be
      * concurrency-safe.
      *
-     * @param moduleBuilds
-     *            Same as <tt>MavenModuleSet.getModuleBuilds()</tt> but provided
-     *            for convenience and efficiency.
-     * @param newBuild
-     *            Newly completed build.
+     * @param moduleBuilds Same as <tt>MavenModuleSet.getModuleBuilds()</tt> but provided
+     *                     for convenience and efficiency.
+     * @param newBuild     Newly completed build.
      */
     public void update(final Map<MavenModule, List<MavenBuild>> moduleBuilds, final MavenBuild newBuild) {
         CpptestResult annotationsResult = new CpptestResult(getOwner(), defaultEncoding, createAggregatedResult(moduleBuilds));
@@ -94,17 +88,19 @@ public class MavenCpptestResultAction extends CpptestResultAction implements Agg
         updateBuildHealth(newBuild, annotationsResult);
     }
 
-    /** Backward compatibility. @deprecated */
+    /**
+     * Backward compatibility. @deprecated
+     */
     @SuppressWarnings("unused")
     @Deprecated
     private transient String height;
 
-	public String getIconFileName() {
-		return null;
-	}
+    public String getIconFileName() {
+        return null;
+    }
 
-	public String getUrlName() {
-		return null;
-	}
+    public String getUrlName() {
+        return null;
+    }
 
 }

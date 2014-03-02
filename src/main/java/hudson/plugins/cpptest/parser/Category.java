@@ -6,25 +6,29 @@ package hudson.plugins.cpptest.parser;
  * @author NQH
  */
 public class Category {
-    /** Name of the violation. */
+    /**
+     * Name of the violation.
+     */
     private String name;
-    /** Description of the violation. */
+    /**
+     * Description of the violation.
+     */
     private String desc;
-    
-	public void setName(String name) {
-		this.name = name;
-	}
 
-	public String getName() {
-		return name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public void setDesc(String desc) {
-		this.desc = desc;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public String getDesc() {
-		return desc;
-	}    
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
 }
 

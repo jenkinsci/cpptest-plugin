@@ -5,15 +5,14 @@ package hudson.plugins.cpptest;
  * shown in the summary.jelly script of the Cpptest result action.
  *
  * @author Ulli Hafner
- * 
- * NQH: adapt for Cpptest
+ *         <p/>
+ *         NQH: adapt for Cpptest
  */
 public final class ResultSummary {
     /**
      * Returns the message to show as the result summary.
      *
-     * @param result
-     *            the result
+     * @param result the result
      * @return the message
      */
     public static String createSummary(final CpptestResult result) {
@@ -26,8 +25,7 @@ public final class ResultSummary {
         }
         if (bugs == 1) {
             summary.append(Messages.Cpptest_ResultAction_OneWarning());
-        }
-        else {
+        } else {
             summary.append(Messages.Cpptest_ResultAction_MultipleWarnings(bugs));
         }
         if (bugs > 0) {
@@ -36,8 +34,7 @@ public final class ResultSummary {
         summary.append(" ");
         if (result.getNumberOfModules() == 1) {
             summary.append(Messages.Cpptest_ResultAction_OneFile());
-        }
-        else {
+        } else {
             summary.append(Messages.Cpptest_ResultAction_MultipleFiles(result.getNumberOfModules()));
         }
         return summary.toString();
@@ -46,8 +43,7 @@ public final class ResultSummary {
     /**
      * Returns the message to show as the result summary.
      *
-     * @param result
-     *            the result
+     * @param result the result
      * @return the message
      */
     public static String createDeltaMessage(final CpptestResult result) {
@@ -56,8 +52,7 @@ public final class ResultSummary {
             summary.append("<li><a href=\"CpptestResult/new\">");
             if (result.getNumberOfNewWarnings() == 1) {
                 summary.append(Messages.Cpptest_ResultAction_OneNewWarning());
-            }
-            else {
+            } else {
                 summary.append(Messages.Cpptest_ResultAction_MultipleNewWarnings(result.getNumberOfNewWarnings()));
             }
             summary.append("</a></li>");
@@ -66,8 +61,7 @@ public final class ResultSummary {
             summary.append("<li><a href=\"CpptestResult/fixed\">");
             if (result.getNumberOfFixedWarnings() == 1) {
                 summary.append(Messages.Cpptest_ResultAction_OneFixedWarning());
-            }
-            else {
+            } else {
                 summary.append(Messages.Cpptest_ResultAction_MultipleFixedWarnings(result.getNumberOfFixedWarnings()));
             }
             summary.append("</a></li>");

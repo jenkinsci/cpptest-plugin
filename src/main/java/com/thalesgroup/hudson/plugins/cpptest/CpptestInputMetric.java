@@ -5,16 +5,14 @@ import com.thalesgroup.dtkit.metrics.model.InputMetricXSL;
 import com.thalesgroup.dtkit.metrics.model.InputType;
 import com.thalesgroup.dtkit.metrics.model.OutputMetric;
 import com.thalesgroup.dtkit.util.validator.ValidationException;
-
 import hudson.util.IOUtils;
 
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
-
 import java.io.File;
-import java.io.IOException;
 import java.io.FileReader;
+import java.io.IOException;
 
 
 public class CpptestInputMetric extends InputMetricXSL {
@@ -51,7 +49,7 @@ public class CpptestInputMetric extends InputMetricXSL {
 
     @Override
     public boolean validateInputFile(File inputXMLFile) throws ValidationException {
-        if (! super.validateInputFile(inputXMLFile)) {
+        if (!super.validateInputFile(inputXMLFile)) {
             return false;
         }
 
@@ -71,14 +69,11 @@ public class CpptestInputMetric extends InputMetricXSL {
                     break;
                 }
             }
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new ValidationException(e);
-        }
-        catch (XMLStreamException e) {
+        } catch (XMLStreamException e) {
             throw new ValidationException(e);
-        }
-        finally {
+        } finally {
             closeStreamReaderQuietly(streamReader);
             IOUtils.closeQuietly(fileReader);
         }
@@ -92,8 +87,7 @@ public class CpptestInputMetric extends InputMetricXSL {
             if (streamReader != null) {
                 streamReader.close();
             }
-        }
-        catch (XMLStreamException e) {
+        } catch (XMLStreamException e) {
             // ignoring on purpose
         }
     }

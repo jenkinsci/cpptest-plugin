@@ -15,20 +15,17 @@ import hudson.plugins.analysis.core.PluginDescriptor;
  * </p>
  *
  * @author Ulli Hafner
- * 
- * NQH: adapt for Cpptest
+ *         <p/>
+ *         NQH: adapt for Cpptest
  */
 public class CpptestResultAction extends AbstractResultAction<CpptestResult> {
 
     /**
      * Creates a new instance of <code>CpptestResultAction</code>.
      *
-     * @param owner
-     *            the associated build of this action
-     * @param healthDescriptor
-     *            health descriptor
-     * @param result
-     *            the result in this build
+     * @param owner            the associated build of this action
+     * @param healthDescriptor health descriptor
+     * @param result           the result in this build
      */
     public CpptestResultAction(final AbstractBuild<?, ?> owner, final HealthDescriptor healthDescriptor, final CpptestResult result) {
         super(owner, new CpptestHealthDescriptor(healthDescriptor), result);
@@ -37,33 +34,39 @@ public class CpptestResultAction extends AbstractResultAction<CpptestResult> {
     /**
      * Creates a new instance of <code>CpptestResultAction</code>.
      *
-     * @param owner
-     *            the associated build of this action
-     * @param healthDescriptor
-     *            health descriptor
+     * @param owner            the associated build of this action
+     * @param healthDescriptor health descriptor
      */
     public CpptestResultAction(final AbstractBuild<?, ?> owner, final HealthDescriptor healthDescriptor) {
         super(owner, new CpptestHealthDescriptor(healthDescriptor));
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     public String getDisplayName() {
         return Messages.Cpptest_ProjectAction_Name();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected PluginDescriptor getDescriptor() {
         return new CpptestDescriptor();
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMultipleItemsTooltip(final int numberOfItems) {
         return Messages.Cpptest_ResultAction_MultipleWarnings(numberOfItems);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getSingleItemTooltip() {
         return Messages.Cpptest_ResultAction_OneWarning();

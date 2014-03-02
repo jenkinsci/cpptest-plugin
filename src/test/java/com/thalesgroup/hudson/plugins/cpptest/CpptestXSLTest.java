@@ -33,4 +33,10 @@ public class CpptestXSLTest extends AbstractXUnitXSLTest {
 
         convertAndValidate(CpptestInputMetric.class, "testcase1/result.xml", "testcase1/junit-result.xml");
     }
+
+    @Test
+    public void testcase2() throws Exception {
+
+        convertAndValidate(CpptestInputMetric.class, "testcase2/result.xml", "testcase2/junit-result.xml");
+    }
 }

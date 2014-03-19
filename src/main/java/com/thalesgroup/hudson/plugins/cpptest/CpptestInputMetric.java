@@ -5,19 +5,12 @@ import com.thalesgroup.dtkit.metrics.model.InputMetricXSL;
 import com.thalesgroup.dtkit.metrics.model.InputType;
 import com.thalesgroup.dtkit.metrics.model.OutputMetric;
 import com.thalesgroup.dtkit.util.validator.ValidationException;
-import hudson.util.IOUtils;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamException;
-import javax.xml.stream.XMLStreamReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 
 
 public class CpptestInputMetric extends InputMetricXSL {
-
-    private final XMLInputFactory factory = XMLInputFactory.newInstance();
 
     @Override
     public InputType getToolType() {
@@ -48,47 +41,22 @@ public class CpptestInputMetric extends InputMetricXSL {
     }
 
     @Override
-    public boolean validateInputFile(File inputXMLFile) throws ValidationException {
-        if (!super.validateInputFile(inputXMLFile)) {
+    public boolean validateInputFile(File file) throws ValidationException {
+        if (!super.validateInputFile(file)) {
             return false;
         }
 
-        String version = null;
-        FileReader fileReader = null;
-        XMLStreamReader streamReader = null;
+        String version;
+
         try {
-            fileReader = new FileReader(inputXMLFile);
-            streamReader = factory.createXMLStreamReader(fileReader);
-
-            while (streamReader.hasNext() && version == null) {
-                streamReader.next();
-                if (streamReader.getEventType() == XMLStreamReader.START_ELEMENT
-                        && streamReader.getLocalName().equals("ResultsSession")) {
-
-                    version = streamReader.getAttributeValue(null, "toolVer");
-                    break;
-                }
-            }
-        } catch (IOException e) {
+            version = VersionParser.parse(file);
+        }
+        catch (IOException e) {
             throw new ValidationException(e);
-        } catch (XMLStreamException e) {
-            throw new ValidationException(e);
-        } finally {
-            closeStreamReaderQuietly(streamReader);
-            IOUtils.closeQuietly(fileReader);
         }
 
-        this.setToolVersion(version);
+        setToolVersion(version);
+
         return version != null;
-    }
-
-    private void closeStreamReaderQuietly(XMLStreamReader streamReader) {
-        try {
-            if (streamReader != null) {
-                streamReader.close();
-            }
-        } catch (XMLStreamException e) {
-            // ignoring on purpose
-        }
     }
 }

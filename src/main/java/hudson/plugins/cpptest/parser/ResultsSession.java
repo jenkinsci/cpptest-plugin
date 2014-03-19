@@ -13,7 +13,9 @@ import java.util.List;
  *         NQH: adapt for Cpptest
  *         NQH: add rule description & category implementation & location
  */
-public class Cpptest {
+public class ResultsSession {
+
+    static final String XPATH = "ResultsSession";
 
     /**
      * All files of this violations collection.
@@ -24,52 +26,30 @@ public class Cpptest {
     private final List<Location> locs = new ArrayList<Location>();
 
     /**
-     * Adds a new file to this bug collection.
-     *
-     * @param file the file to add
-     */
-    public void addFile(final StdViol file) {
-        files.add(file);
-    }
-
-    /**
      * Returns all files of this violations collection. The returned collection is
      * read-only.
      *
      * @return all files of this bug collection
      */
     public Collection<StdViol> getFiles() {
+
+        for (StdViol viol : files) {
+            if (viol.isValid()) {
+                viol.setCatDesc(categs);
+                viol.setRuleDesc(ruleDs);
+                viol.setFsPath(locs);
+            }
+        }
         return Collections.unmodifiableCollection(files);
     }
 
     /**
-     * Returns all rule descriptions of this violations collection. The returned collection is
-     * read-only.
+     * Adds a new file to this bug collection.
      *
-     * @return all descriptions of this bug collection
+     * @param file the file to add
      */
-    public Collection<RuleDesc> getRuleDescs() {
-        return Collections.unmodifiableCollection(ruleDs);
-    }
-
-    /**
-     * Returns all categories of this violations collection. The returned collection is
-     * read-only.
-     *
-     * @return all categories of this bug collection
-     */
-    public Collection<Category> getCategories() {
-        return Collections.unmodifiableCollection(categs);
-    }
-
-    /**
-     * Returns all locations of this violations collection. The returned collection is
-     * read-only.
-     *
-     * @return all locations of this bug collection
-     */
-    public Collection<Location> getLocations() {
-        return Collections.unmodifiableCollection(locs);
+    public void addFile(final StdViol file) {
+        files.add(file);
     }
 
     /**

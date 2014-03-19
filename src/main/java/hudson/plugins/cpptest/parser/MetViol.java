@@ -9,16 +9,9 @@ package hudson.plugins.cpptest.parser;
  *         NQH: adapt for Cpptest
  */
 public class MetViol extends StdViol {
-
-    private String resFile;
-    private String locFile = "Not Defined";
+    static final String XPATH = "ResultsSession/CodingStandards/StdViols/MetViol";
 
     public void setResFile(String resFile) {
-        this.resFile = resFile;
-        this.setLocFile(resFile);
-    }
-
-    public String getResFile() {
-        return resFile;
+        setLocFile(resFile);
     }
 }

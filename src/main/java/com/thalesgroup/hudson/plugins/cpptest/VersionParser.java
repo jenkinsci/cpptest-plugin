@@ -1,6 +1,7 @@
 package com.thalesgroup.hudson.plugins.cpptest;
 
 import org.apache.commons.digester.Digester;
+import org.apache.commons.lang.StringUtils;
 import org.xml.sax.SAXException;
 
 import java.io.File;
@@ -11,6 +12,7 @@ class VersionParser {
     public static String parse(File file) throws IOException {
         final Digester digester = new Digester();
         digester.setValidating(false);
+        digester.setClassLoader(VersionParser.class.getClassLoader());
 
         digester.addObjectCreate(ResultsSession.XPATH, ResultsSession.class);
         digester.addSetProperties(ResultsSession.XPATH);
@@ -23,7 +25,7 @@ class VersionParser {
             throw new IOException(e);
         }
 
-        if (rs == null) {
+        if (rs == null || StringUtils.isBlank(rs.toolVer)) {
             throw new IOException("Invalid C++test report");
         }
 
@@ -34,10 +36,6 @@ class VersionParser {
         static final String XPATH = "ResultsSession";
 
         private String toolVer;
-
-        public String getToolVer() {
-            return toolVer;
-        }
 
         public void setToolVer(String toolVer) {
             this.toolVer = toolVer;

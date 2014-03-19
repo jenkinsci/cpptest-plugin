@@ -6,6 +6,8 @@ package hudson.plugins.cpptest.parser;
  * @author NQH
  */
 public class RuleDesc {
+    static final String XPATH = "ResultsSession/CodingStandards/Rules/RulesList/Rule";
+
     /**
      * Name of the violation.
      */

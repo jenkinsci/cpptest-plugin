@@ -6,6 +6,8 @@ package hudson.plugins.cpptest.parser;
  * @author NQH
  */
 public class Location {
+    static final String XPATH = "ResultsSession/Locations/Loc";
+
     /**
      * Full path location of the file
      */

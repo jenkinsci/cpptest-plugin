@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ResultsSession time="27/03/14 09:32:29" toolName="C++test" toolVer="7.2.11.35">
+    <Authors>
+        <Author id="dridi" name="dridi" />
+    </Authors>
+    
+    <Locations>
+        <Loc fsPath="C:\Program Files\Parasoft\C++test7.2\Examples\ATM\Account.cxx" loc="/ATM/ATM/Account.cxx" />
+        <Loc fsPath="C:\Program Files\Parasoft\C++test7.2\Examples\ATM\ATM.cxx" loc="/ATM/ATM/ATM.cxx" />
+        <Loc fsPath="C:\Program Files\Parasoft\C++test7.2\Examples\ATM\include\BaseDisplay.hxx" loc="/ATM/ATM/include/BaseDisplay.hxx" />
+        <Loc fsPath="C:\Program Files\Parasoft\C++test7.2\Examples\ATM\vc6\StdAfx.h" loc="/ATM/ATM/vc6/StdAfx.h" />
+        <Loc fsPath="C:\Program Files\Parasoft\C++test7.2\Examples\ATM\BaseDisplay.cxx" loc="/ATM/ATM/BaseDisplay.cxx" />
+        <Loc fsPath="C:\Program Files\Parasoft\C++test7.2\Examples\ATM\include\Bank.hxx" loc="/ATM/ATM/include/Bank.hxx" />
+        <Loc fsPath="C:\Program Files\Parasoft\C++test7.2\Examples\ATM\include\ATM.hxx" loc="/ATM/ATM/include/ATM.hxx" />
+        <Loc fsPath="C:\Program Files\Parasoft\C++test7.2\Examples\ATM\Bank.cxx" loc="/ATM/ATM/Bank.cxx" />
+        <Loc fsPath="C:\Program Files\Parasoft\C++test7.2\Examples\ATM\include\Account.hxx" loc="/ATM/ATM/include/Account.hxx" />
+    </Locations>
+    
+    <CodingStandards ownerId="com.parasoft.xtest.checkers.api.standards" time="0:01:11">
+        <Goal mode="1" name="Static" />
+        <Projects>
+            <Project checkedFiles="10" checkedLns="291" name="ATM" qfixErrs="0" suppErrs="0" totErrs="82" totFiles="10" totLns="291" />
+        </Projects>
+        
+  <StdViols>
+    <StdViol cat="MISRA2008" sev="3" lang="cpp" msg="Declare parameter 'bank' as const" locType="sr" hash="-318977119" ln="4" rule="MISRA2008-7_1_1" tool="c++test" urgent="true" auth="unknown" locStartln="4" locStartPos="15" locEndLn="4" locEndPos="16" locFile="/ATM/ATM/ATM.cxx" />
+    <StdViol cat="MISRA2008" sev="3" lang="cpp" msg="Declare parameter 'display' as const" locType="sr" hash="-318977119" ln="4" rule="MISRA2008-7_1_1" tool="c++test" urgent="true" auth="unknown" locStartln="4" locStartPos="34" locEndLn="4" locEndPos="35" locFile="/ATM/ATM/ATM.cxx" />
+    <StdViol cat="MISRA2008" sev="3" lang="cpp" msg="Declare parameter 'accountNumber' as const" locType="sr" hash="-318977119" ln="10" rule="MISRA2008-7_1_1" tool="c++test" urgent="true" auth="unknown" locStartln="10" locStartPos="26" locEndLn="10" locEndPos="27" locFile="/ATM/ATM/ATM.cxx" />
+    <StdViol cat="MISRA2008" sev="3" lang="cpp" msg="Declare parameter 'password' as const" locType="sr" hash="-318977119" ln="10" rule="MISRA2008-7_1_1" tool="c++test" urgent="true" auth="unknown" locStartln="10" locStartPos="48" locEndLn="10" locEndPos="49" locFile="/ATM/ATM/ATM.cxx" />
+    <StdViol cat="MISRA2008" rule="MISRA2008-3_9_2" lang="cpp" sev="5" msg="The basic numerical type 'int' should not be used" tool="c++test" auth="unknown" locType="sr" hash="-318977119" ln="10" locStartln="10" locStartPos="22" locEndLn="10" locEndPos="23" locFile="/ATM/ATM/ATM.cxx" />
+    <StdViol cat="MISRA2008" sev="1" lang="cpp" msg="Assignment to 'myCurrentAccount' used in expression that yield a Boolean value" locType="sr" hash="-318977119" ln="12" rule="MISRA2008-6_2_1" tool="c++test" urgent="true" auth="unknown" locStartln="12" locStartPos="11" locEndLn="12" locEndPos="12" locFile="/ATM/ATM/ATM.cxx" />
+    <StdViol cat="MISRA2008" rule="MISRA2008-3_9_2" lang="cpp" sev="5" msg="The basic numerical type 'double' should not be used" tool="c++test" auth="unknown" locType="sr" hash="-318977119" ln="18" locStartln="18" locStartPos="47" locEndLn="18" locEndPos="48" locFile="/ATM/ATM/ATM.cxx" />
+  </StdViols>
+
+    
+        <Rules>
+            <RulesList>
+                <Rule cat="MISRA2008" desc="typedefs that indicate size and signedness should be used in place of the basic numerical types" id="MISRA2008-3_9_2" sev="4">
+                    <Stats authTot="30;" authUrg="1;" total="30" />
+                </Rule>
+                <Rule cat="MISRA2008" desc="Assignment operators shall not be used in sub-expressions" id="MISRA2008-6_2_1" sev="3">
+                    <Stats authTot="1;" authUrg="1;" total="1" />
+                </Rule>
+                <Rule cat="MISRA2008" desc="A variable which is not modified shall be const qualified" id="MISRA2008-7_1_1" sev="3">
+                    <Stats authTot="20;" authUrg="18;" total="20" />
+                </Rule>
+            </RulesList>
+            <CategoriesList>
+                <Category desc="MISRA C++ 2008" name="MISRA2008" total="262">
+                    <Stats authTot="82;" authUrg="50;" total="82" />
+                </Category>
+            </CategoriesList>
+        </Rules>
+    </CodingStandards>
+</ResultsSession>

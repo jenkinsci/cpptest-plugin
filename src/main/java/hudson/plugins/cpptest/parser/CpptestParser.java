@@ -44,11 +44,22 @@ public class CpptestParser extends AbstractAnnotationParser {
     }
 
     /**
-     * TODO docs
-     * Boundary between the parser and the model
+     * Boundary between the parser and the model.
+     *
+     * This interface is here to prevent direct use of the model internals in this class.
      */
     static interface FileAnnotationBuilder {
+
+        /**
+         * @return true if the instance yields a valid {@link FileAnnotation}
+         */
         boolean isValid();
+
+        /**
+         * @param moduleName the name of the module associated with the {@link FileAnnotation}
+         * @param encoding the encoding of the report file
+         * @return a {@link FileAnnotation}
+         */
         FileAnnotation toFileAnnotation(String moduleName, String encoding);
     }
 
@@ -80,7 +91,7 @@ public class CpptestParser extends AbstractAnnotationParser {
         return annotations;
     }
 
-    private Collection<StdViol> parseReport(final InputStream stream) throws InvocationTargetException {
+    private Collection<? extends FileAnnotationBuilder> parseReport(final InputStream stream) throws InvocationTargetException {
         Reader reader = null;
         try {
             final String encoding = getDefaultEncoding();

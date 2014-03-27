@@ -7,9 +7,12 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * An easy-to-use function to extract the version number from a C++test report.
+ */
 class VersionParser {
 
-    public static String parse(File file) throws IOException {
+    static String parse(File file) throws IOException {
         final Digester digester = new Digester();
         digester.setValidating(false);
         digester.setClassLoader(VersionParser.class.getClassLoader());
@@ -32,6 +35,9 @@ class VersionParser {
         return rs.toolVer;
     }
 
+    /**
+     * This class needs to be public only for the {@link Digester} class.
+     */
     public static class ResultsSession {
         static final String XPATH = "ResultsSession";
 

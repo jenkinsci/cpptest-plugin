@@ -2,6 +2,8 @@ package hudson.plugins.cpptest.parser;
 
 import org.apache.commons.lang.StringUtils;
 
+import hudson.plugins.cpptest.parser.CpptestParser.FileAnnotationBuilder;
+
 import java.util.*;
 
 
@@ -31,7 +33,7 @@ public class ResultsSession {
      *
      * @return all files of this bug collection
      */
-    public Collection<StdViol> getFiles() {
+    public Collection<? extends FileAnnotationBuilder> getFiles() {
 
         // This should in theory only happen once, but it's fine to run it several times.
         // It is supposedly idempotent, but the classes are mutable. At least, nothing
@@ -44,6 +46,7 @@ public class ResultsSession {
                 viol.setFsPath(locs);
             }
         }
+
         return Collections.unmodifiableCollection(files);
     }
 

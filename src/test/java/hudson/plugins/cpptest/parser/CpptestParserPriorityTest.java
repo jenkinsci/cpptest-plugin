@@ -59,7 +59,7 @@ public class CpptestParserPriorityTest {
     public static Collection<Object[]> parameters() {
         return Arrays.asList(new Object[][]{
                 {"report-7.2.11.35-test.xml", 1, 4, 2},
-                // TODO report >= 9.0
+                {"report-9.5.0.49-test.xml",  2, 1, 3},
         });
     }
 }

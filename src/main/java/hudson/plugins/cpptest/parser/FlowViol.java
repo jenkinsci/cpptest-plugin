@@ -12,9 +12,16 @@ package hudson.plugins.cpptest.parser;
 public class FlowViol extends StdViol {
     static final String XPATH = "ResultsSession/CodingStandards/StdViols/FlowViol";
     /**
-     * Category of BugDetective violation.
+     * Category of BugDetective violation for C++test < 9.0.
      */
     public void setRuleSAFMsg(String ruleSAFMsg) {
         this.setCat(ruleSAFMsg);
+    }
+
+    /**
+     * Category of BugDetective violation for C++test >= 9.0.
+     */
+    public void setRuleSCSCMsg(String ruleSCSCMsg) {
+        this.setCat(ruleSCSCMsg);
     }
 }

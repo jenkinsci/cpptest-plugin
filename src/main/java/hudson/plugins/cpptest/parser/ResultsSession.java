@@ -1,9 +1,9 @@
 package hudson.plugins.cpptest.parser;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import org.apache.commons.lang.StringUtils;
+
+import java.util.*;
+
 
 /**
  * Java Bean class for a errors and other collection of the Cpptest format.
@@ -21,9 +21,9 @@ public class ResultsSession {
      * All files of this violations collection.
      */
     private final List<StdViol> files = new ArrayList<StdViol>();
-    private final List<RuleDesc> ruleDs = new ArrayList<RuleDesc>();
-    private final List<Category> categs = new ArrayList<Category>();
-    private final List<Location> locs = new ArrayList<Location>();
+    private final Map<String, String> ruleDs = new HashMap<String, String>();
+    private final Map<String, String> categs = new HashMap<String, String>();
+    private final Map<String, String> locs = new HashMap<String, String>();
 
     /**
      * Returns all files of this violations collection. The returned collection is
@@ -32,6 +32,10 @@ public class ResultsSession {
      * @return all files of this bug collection
      */
     public Collection<StdViol> getFiles() {
+
+        // This should in theory only happen once, but it's fine to run it several times.
+        // It is supposedly idempotent, but the classes are mutable. At least, nothing
+        // should change once XML parsing is done.
 
         for (StdViol viol : files) {
             if (viol.isValid()) {
@@ -57,8 +61,8 @@ public class ResultsSession {
      * @return true if OK, false otherwise
      * @see java.util.List#add(java.lang.Object)
      */
-    public boolean addCategory(Category e) {
-        return categs.add(e);
+    public void addCategory(Category e) {
+        categs.put(e.getName(), StringUtils.capitalize(e.getDesc()));
     }
 
     /**
@@ -66,8 +70,8 @@ public class ResultsSession {
      * @return true if OK, false otherwise
      * @see java.util.List#add(java.lang.Object)
      */
-    public boolean addRuleDesc(RuleDesc e) {
-        return ruleDs.add(e);
+    public void addRuleDesc(RuleDesc e) {
+        ruleDs.put(e.getId(), e.getDesc());
     }
 
     /**
@@ -75,8 +79,8 @@ public class ResultsSession {
      * @return true if OK, false otherwise
      * @see java.util.List#add(java.lang.Object)
      */
-    public boolean addLocation(Location e) {
-        return locs.add(e);
+    public void addLocation(Location e) {
+        locs.put(e.getLoc(), e.getFsPath());
     }
 }
 

@@ -9,6 +9,7 @@ import org.apache.commons.lang.StringUtils;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.Map;
 
 /**
  * Java Bean class for a file of the Cpptest format.
@@ -65,31 +66,16 @@ public class StdViol implements FileAnnotationBuilder {
 
     // other methods
 
-    void setCatDesc(Collection<Category> categories) {
-        for (Category category : categories) {
-            if (category.getName().equals(cat)) {
-                catDesc = StringUtils.capitalize(category.getDesc());
-                return;
-            }
-        }
+    void setCatDesc(Map<String, String> categories) {
+        catDesc = categories.get(cat);
     }
 
-    void setRuleDesc(Collection<RuleDesc> ruleDescs) {
-        for (RuleDesc desc : ruleDescs) {
-            if (desc.getId().equals(rule)) {
-                ruleDesc = desc.getDesc();
-                return;
-            }
-        }
+    void setRuleDesc(Map<String, String> ruleDescs) {
+        ruleDesc = ruleDescs.get(rule);
     }
 
-    void setFsPath(Collection<Location> locations) {
-        for (Location loc : locations) {
-            if (loc.getLoc().equals(locFile)) {
-                fsPath = loc.getFsPath();
-                return;
-            }
-        }
+    void setFsPath(Map<String, String> locations) {
+        fsPath = locations.get(locFile);
     }
 
     /**

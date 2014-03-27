@@ -13,18 +13,9 @@ public class RuleDesc {
      */
     private String id;
     /**
-     * Severity of the violation.
-     */
-    private String sev;
-    /**
      * Description of the violation.
      */
     private String desc;
-    /**
-     * Category of the violation.
-     */
-    private String cat;
-
 
     public void setId(String id) {
         this.id = id;
@@ -34,28 +25,12 @@ public class RuleDesc {
         return id;
     }
 
-    public void setSev(String sev) {
-        this.sev = sev;
-    }
-
-    public String getSev() {
-        return sev;
-    }
-
     public void setDesc(String desc) {
         this.desc = desc;
     }
 
     public String getDesc() {
         return desc;
-    }
-
-    public String getCat() {
-        return cat;
-    }
-
-    public void setCat(String cat) {
-        this.cat = cat;
     }
 
 }

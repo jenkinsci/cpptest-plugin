@@ -7,6 +7,7 @@ package hudson.plugins.cpptest.parser;
  */
 public class Category {
     static final String XPATH = "ResultsSession/CodingStandards/Rules/CategoriesList/Category";
+
     /**
      * Name of the violation.
      */

@@ -111,9 +111,11 @@
 	</xsl:template>
 
 	<xsl:template match="ExecViol">
-		<testcase classname="{@locFile}" name="{@testName}" time="0">
-			<xsl:apply-templates select="Thr" />
-		</testcase>
+		<xsl:if test="@cat!=6">
+			<testcase classname="{@locFile}" name="{@testName}" time="0">
+				<xsl:apply-templates select="Thr" />
+			</testcase>
+		</xsl:if>
 	</xsl:template>
 
 	<xsl:template match="Thr">

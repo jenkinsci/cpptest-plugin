@@ -1,19 +1,17 @@
 package hudson.plugins.cpptest.parser;
 
 import hudson.plugins.analysis.core.AbstractAnnotationParser;
-import hudson.plugins.analysis.util.JavaPackageDetector;
 import hudson.plugins.analysis.util.model.FileAnnotation;
-import hudson.plugins.analysis.util.model.Priority;
+import hudson.util.IOUtils;
 import org.apache.commons.digester.Digester;
 import org.apache.commons.lang.StringUtils;
 import org.xml.sax.SAXException;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * A parser for Cpptest XML files.
@@ -46,158 +44,106 @@ public class CpptestParser extends AbstractAnnotationParser {
     }
 
     /**
+     * Boundary between the parser and the model.
+     *
+     * This interface is here to prevent direct use of the model internals in this class.
+     */
+    static interface FileAnnotationBuilder {
+
+        /**
+         * @return true if the instance yields a valid {@link FileAnnotation}
+         */
+        boolean isValid();
+
+        /**
+         * @param moduleName the name of the module associated with the {@link FileAnnotation}
+         * @param encoding the encoding of the report file
+         * @return a {@link FileAnnotation}
+         */
+        FileAnnotation toFileAnnotation(String moduleName, String encoding);
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
-    public Collection<FileAnnotation> parse(final InputStream file, final String moduleName) throws InvocationTargetException {
-        try {
-            Digester digester = new Digester();
-            digester.setValidating(false);
-            digester.setClassLoader(CpptestParser.class.getClassLoader());
+    public Collection<FileAnnotation> parse(final InputStream stream, final String moduleName)
+            throws InvocationTargetException {
 
-            String rootXPath = "ResultsSession";
-            digester.addObjectCreate(rootXPath, Cpptest.class);
-            digester.addSetProperties(rootXPath);
+        final String encoding = getDefaultEncoding();
+        final Collection<? extends FileAnnotationBuilder> builders;
+        final Collection<FileAnnotation> annotations;
 
-            String fileXPath = "ResultsSession/CodingStandards/StdViols/StdViol";
-            digester.addObjectCreate(fileXPath, hudson.plugins.cpptest.parser.StdViol.class);
-            digester.addSetProperties(fileXPath);
-            digester.addSetNext(fileXPath, "addFile", hudson.plugins.cpptest.parser.StdViol.class.getName());
+        builders = parseReport(stream);
 
-            //Change for update 0.10 : To use FlowViol
-            fileXPath = "ResultsSession/CodingStandards/StdViols/FlowViol";
-            digester.addObjectCreate(fileXPath, hudson.plugins.cpptest.parser.FlowViol.class);
-            digester.addSetProperties(fileXPath);
-            digester.addSetNext(fileXPath, "addFile", hudson.plugins.cpptest.parser.FlowViol.class.getName());
-
-            //Change for the detection of Metrics Violations :
-            fileXPath = "ResultsSession/CodingStandards/StdViols/MetViol";
-            digester.addObjectCreate(fileXPath, hudson.plugins.cpptest.parser.MetViol.class);
-            digester.addSetProperties(fileXPath);
-            digester.addSetNext(fileXPath, "addFile", hudson.plugins.cpptest.parser.MetViol.class.getName());
-
-            String ruleXPath = "ResultsSession/CodingStandards/Rules/RulesList/Rule";
-            digester.addObjectCreate(ruleXPath, hudson.plugins.cpptest.parser.RuleDesc.class);
-            digester.addSetProperties(ruleXPath);
-            digester.addSetNext(ruleXPath, "addRuleDesc", hudson.plugins.cpptest.parser.RuleDesc.class.getName());
-
-            String categoryXPath = "ResultsSession/CodingStandards/Rules/CategoriesList/Category";
-            digester.addObjectCreate(categoryXPath, hudson.plugins.cpptest.parser.Category.class);
-            digester.addSetProperties(categoryXPath);
-            digester.addSetNext(categoryXPath, "addCategory", hudson.plugins.cpptest.parser.Category.class.getName());
-
-            String locXPath = "ResultsSession/Locations/Loc";
-            digester.addObjectCreate(locXPath, hudson.plugins.cpptest.parser.Location.class);
-            digester.addSetProperties(locXPath);
-            digester.addSetNext(locXPath, "addLocation", hudson.plugins.cpptest.parser.Location.class.getName());
-
-            Cpptest module;
-            module = (Cpptest) digester.parse(new InputStreamReader(file, "UTF-8"));
-            if (module == null) {
-                throw new SAXException("Input stream is not a Cpptest file.");
-            }
-
-            return convert(module, moduleName);
-        } catch (IOException exception) {
-            throw new InvocationTargetException(exception);
-        } catch (SAXException exception) {
-            throw new InvocationTargetException(exception);
+        if (builders.isEmpty()) {
+            return Collections.emptyList();
         }
-    }
 
-    /**
-     * Converts the internal structure to the annotations API.
-     *
-     * @param collection the internal maven module
-     * @param moduleName name of the maven module
-     * @return a maven module of the annotations API
-     */
-    private Collection<FileAnnotation> convert(final Cpptest collection, final String moduleName) {
-        ArrayList<FileAnnotation> annotations = new ArrayList<FileAnnotation>();
+        annotations = new ArrayList<FileAnnotation>(builders.size());
 
-        for (hudson.plugins.cpptest.parser.StdViol viol : collection.getFiles()) {
-            if (isValidWarning(viol) && isSuppressedWarning(viol)) {
-                String packageName = new JavaPackageDetector().detectPackageName(viol.getRule());
-                Priority priority;
-                if ("1".equalsIgnoreCase(viol.getSev())) {
-                    priority = Priority.HIGH;
-                } else if ("2".equalsIgnoreCase(viol.getSev())) {
-                    priority = Priority.HIGH;
-                } else if ("3".equalsIgnoreCase(viol.getSev())) {
-                    priority = Priority.NORMAL;
-                } else if ("4".equalsIgnoreCase(viol.getSev())) {
-                    priority = Priority.NORMAL;
-                } else if ("5".equalsIgnoreCase(viol.getSev())) {
-                    priority = Priority.LOW;
-                } else {
-                    continue; // ignore
-                }
-
-                String type = viol.getRule();
-                String category = viol.getCat();
-
-                for (hudson.plugins.cpptest.parser.Category categ : collection.getCategories()) {
-                    if (categ.getName().equals(category)) {
-                        category = categ.getDesc();
-                        break;
-                    }
-                }
-
-                Warning warning = new Warning(priority, viol.getMsg(), StringUtils.capitalize(category),
-                        type, viol.getLn(), viol.getLn());
-
-                warning.setFileName(viol.getLocFile());
-
-                for (hudson.plugins.cpptest.parser.RuleDesc rule : collection.getRuleDescs()) {
-                    if (rule.getId().equals(viol.getRule())) {
-                        warning.setDesc(rule.getDesc());
-                        break;
-                    }
-                }
-
-                for (hudson.plugins.cpptest.parser.Location loc : collection.getLocations()) {
-                    if (loc.getLoc().equals(viol.getLocFile())) {
-                        warning.setFileName(loc.getFsPath());
-                        break;
-                    }
-                }
-
-                //TODO: module and package settings need to be modify to work properly for C++Test purpose
-                warning.setModuleName(moduleName);
-                warning.setPackageName(packageName);
-
-                try {
-                    warning.setContextHashCode(createContextHashCode(viol.getRule(), viol.getLn()));
-                } catch (IOException exception) {
-                    // ignore and continue
-                }
-                annotations.add(warning);
-
+        for (FileAnnotationBuilder builder: builders) {
+            if (builder.isValid()) {
+                annotations.add(builder.toFileAnnotation(moduleName, encoding));
             }
         }
+
         return annotations;
     }
 
-    /**
-     * Returns <code>true</code> if this warning is valid or <code>false</code>
-     * if the warning can't be processed by the Cpptest plug-in.
-     *
-     * @param file the file to check
-     * @return <code>true</code> if this warning is valid
-     */
-    private boolean isValidWarning(final hudson.plugins.cpptest.parser.StdViol viol) {
-        return !viol.getRule().endsWith("package.html");
+    private Collection<? extends FileAnnotationBuilder> parseReport(final InputStream stream) throws InvocationTargetException {
+        Reader reader = null;
+        try {
+            final String encoding = getDefaultEncoding();
+
+            if ( StringUtils.isBlank(encoding) ) {
+                reader = new InputStreamReader(stream);
+            }
+            else {
+                // FIXME an unknown encoding will silently fail, ignoring the report
+                reader = new InputStreamReader(stream, encoding);
+            }
+
+            final Digester digester = newDigester();
+            final ResultsSession rs = (ResultsSession) digester.parse(reader);
+
+            if (rs == null) {
+                throw new IOException("Invalid Cpptest report");
+            }
+
+            return rs.getFiles();
+        }
+        catch (IOException e) {
+            throw new InvocationTargetException(e);
+        }
+        catch (SAXException e) {
+            throw new InvocationTargetException(e);
+        }
+        finally {
+            IOUtils.closeQuietly(reader);
+        }
     }
 
-    /**
-     * Returns <code>true</code> if this warning is valid or <code>false</code>
-     * if the warning can't be processed by the Cpptest plug-in.
-     *
-     * @param file the file to check
-     * @return <code>true</code> if this warning is not suppressed
-     */
-    private boolean isSuppressedWarning(final hudson.plugins.cpptest.parser.StdViol viol) {
-        return !("true".equalsIgnoreCase(viol.getSupp()));
+    private Digester newDigester() {
+        final Digester digester = new Digester();
+        digester.setValidating(false);
+        digester.setClassLoader(getClass().getClassLoader());
+
+        digester.addObjectCreate(ResultsSession.XPATH, ResultsSession.class);
+        digester.addSetProperties(ResultsSession.XPATH);
+
+        addElement(digester, StdViol.XPATH, StdViol.class, "addFile");
+        addElement(digester, FlowViol.XPATH, FlowViol.class, "addFile");
+        addElement(digester, MetViol.XPATH, MetViol.class, "addFile");
+        addElement(digester, RuleDesc.XPATH, RuleDesc.class, "addRuleDesc");
+        addElement(digester, Category.XPATH, Category.class, "addCategory");
+        addElement(digester, Location.XPATH, Location.class, "addLocation");
+        return digester;
+    }
+
+    private void addElement(Digester digester, String xpath, Class<?> clazz, String method) {
+        digester.addObjectCreate(xpath, clazz);
+        digester.addSetProperties(xpath);
+        digester.addSetNext(xpath, method, clazz.getName());
     }
 }
-

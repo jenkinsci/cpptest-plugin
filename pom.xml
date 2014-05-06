@@ -9,7 +9,7 @@
 
     <groupId>com.thalesgroup.jenkins-ci.plugins</groupId>
     <artifactId>cpptest</artifactId>
-    <version>0.13-SNAPSHOT</version>
+    <version>0.13</version>
     <packaging>hpi</packaging>
     <name>Jenkins Cpptest plugin</name>
     <url>http://wiki.jenkins-ci.org/display/JENKINS/Cpptest+Plugin</url>
@@ -150,7 +150,8 @@
     <scm>
         <connection>scm:git:git://github.com/jenkinsci/cpptest-plugin.git</connection>
         <developerConnection>scm:git:git@github.com:jenkinsci/cpptest-plugin.git</developerConnection>
-    </scm>
+      <tag>cpptest-0.13</tag>
+  </scm>
 
     <repositories>
         <repository>

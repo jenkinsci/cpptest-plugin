@@ -15,8 +15,8 @@ import org.kohsuke.stapler.DataBoundConstructor;
 public class CpptestPluginType extends TestType {
 
     @DataBoundConstructor
-    public CpptestPluginType(String pattern, boolean faildedIfNotNew, boolean deleteOutputFiles) {
-        super(pattern, faildedIfNotNew, deleteOutputFiles);
+    public CpptestPluginType(String pattern, boolean failIfNotNew, boolean deleteOutputFiles) {
+        super(pattern, failIfNotNew, deleteOutputFiles);
     }
 
     public TestTypeDescriptor<?> getDescriptor() {

@@ -1,9 +1,8 @@
 package com.thalesgroup.hudson.plugins.cpptest;
 
-
-import com.thalesgroup.dtkit.metrics.hudson.api.descriptor.TestTypeDescriptor;
-import com.thalesgroup.dtkit.metrics.hudson.api.type.TestType;
 import hudson.Extension;
+import org.jenkinsci.lib.dtkit.descriptor.TestTypeDescriptor;
+import org.jenkinsci.lib.dtkit.type.TestType;
 import org.kohsuke.stapler.DataBoundConstructor;
 
 /**

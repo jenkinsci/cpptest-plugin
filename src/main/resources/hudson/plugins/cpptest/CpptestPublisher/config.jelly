@@ -6,6 +6,6 @@
 		checkUrl="'descriptorByName/CpptestPublisher/checkPattern?value='+escape(this.value)" />
   </f:entry>
   <f:advanced>
-    <u:advanced id="cpptest"/>
+    <u:advanced id="Cpptest"/>
   </f:advanced>
 </j:jelly>

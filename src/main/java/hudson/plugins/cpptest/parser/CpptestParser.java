@@ -3,10 +3,11 @@ package hudson.plugins.cpptest.parser;
 import hudson.plugins.analysis.core.AbstractAnnotationParser;
 import hudson.plugins.analysis.util.model.FileAnnotation;
 import hudson.util.IOUtils;
-import org.apache.commons.digester.Digester;
+import org.apache.commons.digester3.Digester;
 import org.apache.commons.lang.StringUtils;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -124,8 +125,8 @@ public class CpptestParser extends AbstractAnnotationParser {
         }
     }
 
-    private Digester newDigester() {
-        final Digester digester = new Digester();
+    private Digester newDigester() throws SAXException {
+        final Digester digester = createDigester(!Boolean.getBoolean(getClass().getName() + ".UNSAFE"));
         digester.setValidating(false);
         digester.setClassLoader(getClass().getClassLoader());
 
@@ -145,5 +146,21 @@ public class CpptestParser extends AbstractAnnotationParser {
         digester.addObjectCreate(xpath, clazz);
         digester.addSetProperties(xpath);
         digester.addSetNext(xpath, method, clazz.getName());
+    }
+
+    private static Digester createDigester(boolean secure) throws SAXException {
+        Digester digester = new Digester();
+        if (secure) {
+            digester.setXIncludeAware(false);
+            try {
+                digester.setFeature("http://apache.org/xml/features/disallow-doctype-decl", true);
+                digester.setFeature("http://xml.org/sax/features/external-general-entities", false);
+                digester.setFeature("http://xml.org/sax/features/external-parameter-entities", false);
+                digester.setFeature("http://apache.org/xml/features/nonvalidating/load-external-dtd", false);
+            } catch (ParserConfigurationException ex) {
+                throw new SAXException("Failed to securely configure xml digester parser", ex);
+            }
+        }
+        return digester;
     }
 }
